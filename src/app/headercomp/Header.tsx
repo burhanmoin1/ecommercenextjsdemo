@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
-import Logo from '@/app/assets/icons/logo.png';
+import Logo from '@/app/assets/icons/iglogocheck-01.png';
 import downarrow from '@/app/assets/icons/downarrow.png';
 import uparrow from '@/app/assets/icons/uparrow.png';
 import trashicon from '@/app/assets/icons/trashicon.png';
@@ -128,7 +128,7 @@ const TestTwoHeader = () => {
               src={Logo.src}
               alt="Remote Connect Logo"
               className="2xl:h-12 xl:h-12 lg:h-12 md:h-12 mt-3 ml-2"
-              width={200}
+              width={100}
               height={180}
             />
           </Link>
@@ -555,7 +555,7 @@ const TestTwoHeader = () => {
                 src={Logo.src}
                 alt="Remote Connect Logo" 
                 className="h-10 mr-40" 
-                width={160}
+                width={80}
                 height={120}
             />
             </Link>

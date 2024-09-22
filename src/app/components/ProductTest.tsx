@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { addToCart, toggleCartMenu } from '../redux/slices/cartSlice'; 
+import Link from 'next/link';
 
 // Function to count occurrences
 const countOccurrences = (arr: string[]) => {
@@ -335,9 +336,11 @@ const ProductTest: React.FC = () => {
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => (
                                 <motion.div whileHover={{ scale: 1.002 }} key={product.sku} className="bg-white border-1 p-4 rounded hover:cursor-pointer ">
+                                    <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`}>
                                     <Image src={product.image} alt={product.name} width={600} height={100} className='w-full object-cover' />
                                     <h3 className='font-bold text-center'>{product.name}</h3>
                                     <p className='text-center mt-2'>Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
+                                    </Link>
                                     <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white'  onClick={() => handleAddToCart(product)}>Add to cart</button>
                                 </motion.div>
                             ))

@@ -1,15 +1,14 @@
 import TestTwoHeader from "@/app/headercomp/Header";
 import ItemsHeader from "@/app/headercomp/ItemsHeader";
-import SearchPage from "@/app/components/SearchPage";
-import Footer from "@/app/components/Footer";
+import ProductPage from "@/app/components/ProductPage";
 
-export default function Search() {
+export default function Home() {
   return (
     <div>
       <TestTwoHeader />
       <ItemsHeader />
-      <SearchPage />
-
+      <ProductPage />
       </div>
+
   );
 }

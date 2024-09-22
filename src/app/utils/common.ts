@@ -36,7 +36,7 @@ const products: Product[] = [
       image: oreosandw,
   },
   {
-      name: "Byoma De-pufff + Brighten Eye Gel 20ml",
+      name: "Byoma Depufff + Brighten Eye Gel 20ml",
       brand: "Byoma",
       sku: '5060489794154',
       primary_category: 'Health & Beauty',

@@ -9,7 +9,7 @@ export default function Home() {
       <TestTwoHeader />
       <ItemsHeader />
       <ProductTest />
-      <Footer />
+   
       </div>
 
   );
