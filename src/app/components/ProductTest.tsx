@@ -331,7 +331,7 @@ const ProductTest: React.FC = () => {
                     </h2>
                     </div>
                     {/* Product laoyut */}
-                    <div className={`grid grid-cols-${mobilecolumns} 2xl:grid-cols-${columns} xl:grid-cols-${columns} md:grid-cols-${columns} 2xl:gap-4  gap-2 mt-0`}>
+                    <div className={`grid grid-cols-${mobilecolumns} 2xl:grid-cols-${columns} xl:grid-cols-${columns} lg:grid-cols-${columns} md:grid-cols-${columns} 2xl:gap-4  gap-2 mt-0`}>
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => (
                                 <motion.div whileHover={{ scale: 1.002 }} key={product.sku} className="bg-white border-1 p-4 rounded hover:cursor-pointer ">
