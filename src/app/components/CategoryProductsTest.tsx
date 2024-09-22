@@ -321,7 +321,7 @@ const CategoryProductsTest: React.FC = () => {
                     <div className={`grid grid-cols-${mobilecolumns} 2xl:grid-cols-${columns} xl:grid-cols-${columns} lg:grid-cols-${columns} md:grid-cols-${columns} 2xl:gap-4  gap-2 mt-0`}>
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => (
-                                <motion.div whileHover={{ scale: 1.002 }} key={product.sku} className="bg-white border-1 p-4 rounded hover:cursor-pointer ">
+                                <motion.div whileHover={{ scale: 1.005, boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)" }} key={product.sku} className="bg-white border-1 p-4 rounded hover:cursor-pointer ">
                                     <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`}>
                                     <Image src={product.image} alt={product.name} width={600} height={100} className='w-full object-cover' />
                                     <h3 className='font-bold text-center'>{product.name}</h3>
