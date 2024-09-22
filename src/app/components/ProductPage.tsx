@@ -7,6 +7,8 @@ import { useParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import backarrow from '@/app/assets/icons/backarrow.png';
 import { addToCart, toggleCartMenu } from '../redux/slices/cartSlice';
+import plusicon from '@/app/assets/icons/plusicon.png';
+import minusicon from '@/app/assets/icons/minusicon.png';
 import Link from 'next/link';
 
 const ProductPage: React.FC = () => {
@@ -87,19 +89,19 @@ const ProductPage: React.FC = () => {
                 </p>
 
                 {/* Quantity Selector */}
-                <div className="flex items-center pt-8 space-x-4 justify-center 2xl:justify-start">
+                <div className="flex items-center pt-8 space-x-8 justify-center 2xl:justify-start">
                     <button
                         onClick={() => handleQuantityChange('decrease')}
-                        className="bg-gray-200 text-black px-3 py-1 rounded"
+                        className="bg-gray-200 text-black p-2 rounded-full"
                     >
-                        -
+                        <Image src={minusicon} alt="Decrease quantity" width={20} height={20} />
                     </button>
                     <span className="text-xl font-semibold">{quantity}</span>
                     <button
                         onClick={() => handleQuantityChange('increase')}
-                        className="bg-gray-200 text-black px-3 py-1 rounded"
+                        className="bg-gray-200 text-black p-2 rounded-full"
                     >
-                        +
+                         <Image src={plusicon} alt="Increase quantity" width={20} height={20} />
                     </button>
                 </div>
 

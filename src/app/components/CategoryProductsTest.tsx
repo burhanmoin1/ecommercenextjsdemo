@@ -318,17 +318,27 @@ const CategoryProductsTest: React.FC = () => {
                     </h2>
                     </div>
                     {/* Product laoyut */}
-                    <div className={`grid grid-cols-${mobilecolumns} 2xl:grid-cols-${columns} xl:grid-cols-${columns} lg:grid-cols-${columns} md:grid-cols-${columns} 2xl:gap-4  gap-2 mt-0`}>
+                    <div className={`grid grid-cols-${mobilecolumns} 2xl:grid-cols-${columns} xl:grid-cols-${columns} lg:grid-cols-${columns} md:grid-cols-${columns} 2xl:gap-4  gap-2 mt-2`}>
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((product) => (
-                                <motion.div whileHover={{ scale: 1.005, boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)" }} key={product.sku} className="bg-white border-1 p-4 rounded hover:cursor-pointer ">
+                                <motion.div 
+                                    whileHover={{ scale: 1.005, boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)" }} 
+                                    whileTap={{ scale: 1.002, boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.2)" }} 
+                                    key={product.sku} 
+                                    className="bg-white border-1 p-4 rounded hover:cursor-pointer flex flex-col justify-between h-full"
+                                    >
                                     <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`}>
-                                    <Image src={product.image} alt={product.name} width={600} height={100} className='w-full object-cover' />
-                                    <h3 className='font-bold text-center'>{product.name}</h3>
-                                    <p className='text-center mt-2'>Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
+                                        <Image src={product.image} alt={product.name} width={600} height={100} className='w-full object-cover' />
+                                        <h3 className='font-bold text-center'>{product.name}</h3>
+                                        <p className='text-center mt-2'>Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
                                     </Link>
-                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white' onClick={() => handleAddToCart(product)}>Add to cart</button>
-                                </motion.div>
+                                    
+                                    {/* Ensure the button is always at the end of the flex container */}
+                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-auto hover:bg-[#3c3f74] hover:text-white' 
+                                            onClick={() => handleAddToCart(product)}>
+                                        Add to cart
+                                    </button>
+                                    </motion.div>
                             ))
                         ) : (
                             <p>No products found for the selected filters.</p>

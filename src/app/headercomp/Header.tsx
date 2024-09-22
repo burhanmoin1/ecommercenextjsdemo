@@ -207,10 +207,12 @@ const TestTwoHeader = () => {
                     <p className="text-center w-full col-span-4">Start typing to search for products...</p>
                   ) : filteredProducts.length > 0 ? (
                     filteredProducts.map((product) => (
-                      <div key={product.sku} className="bg-white p-4 rounded text-center hover:cursor-pointer">
+                      <div key={product.sku} className="bg-white p-4 rounded text-center hover:cursor-pointer" >
+                         <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`} onClick={() => dispatch(toggleSearchMenu())}>
                         <Image src={product.image} alt={product.name} width={200} height={150} className="mx-auto mb-2" />
                         <h3 className="font-bold">{product.name}</h3>
                         <p className="text-gray-600 mt-2">Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
+                        </Link>
                         <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white'  onClick={() => handleAddToCart(product)}>Add to cart</button>
                       </div>
                     ))
@@ -449,66 +451,66 @@ const TestTwoHeader = () => {
                     {cartItems.length}
                     </div>
                 <motion.div
-          className="fixed inset-0 bg-black z-30 translate-x-[-50px] w-full"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isCartOpen ? 0.5 : 0 }}
-          transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
-        />
-          {/* Menu Drawer for Cart */}
-          <div className={`fixed top-0 left-0 w-full h-full z-30 ${isCartOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
-            {/* This div will close the sidebar when clicked */}
-            </div>
-            </div>
-        
-        {/* Mobile Header */}
-        <div className="flex justify-between w-full p-5 2xl:hidden xl:hidden lg:hidden md:flex sm:flex">
-         
-             {/* Hamburger Menu */}
-          <div className={`flex items-center ${isCartOpen ? 'hidden' : 'block'} ${isSearchOpen ? 'opacity-0' : '' }`}>
-            <button 
-              onClick={toggleMenu} 
-              className="relative w-6 h-4 flex flex-col justify-between items-center"
-            >
+              className="fixed inset-0 bg-black z-30 translate-x-[-50px] w-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isCartOpen ? 0.5 : 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+            />
+              {/* Menu Drawer for Cart */}
+              <div className={`fixed top-0 left-0 w-full h-full z-30 ${isCartOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
+                {/* This div will close the sidebar when clicked */}
+                </div>
+                </div>
+            
+            {/* Mobile Header */}
+            <div className="flex justify-between w-full p-5 2xl:hidden xl:hidden lg:hidden md:flex sm:flex">
+            
+                {/* Hamburger Menu */}
+              <div className={`flex items-center ${isCartOpen ? 'hidden' : 'block'} ${isSearchOpen ? 'opacity-0' : '' }`}>
+                <button 
+                  onClick={toggleMenu} 
+                  className="relative w-6 h-4 flex flex-col justify-between items-center"
+                >
+                  <motion.div
+                    className="w-6 h-0.5 bg-black"
+                    animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }} // Adjust y values as needed
+                    transition={{ duration: 0.3 }}
+                    style={{ zIndex: 50 }} // Ensure the line appears on top
+                  />
+                  <motion.div
+                    className="w-6 h-0.5 bg-black"
+                    animate={{ opacity: isOpen ? 0 : 1 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ zIndex: 50 }} // Ensure the line appears on top
+                  />
+                  <motion.div
+                    className="w-6 h-0.5 bg-black"
+                    animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -10 : 0 }} // Adjust y values as needed
+                    transition={{ duration: 0.3 }}
+                    style={{ zIndex: 50 }} // Ensure the line appears on top
+                  />
+                </button>
+          
               <motion.div
-                className="w-6 h-0.5 bg-black"
-                animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }} // Adjust y values as needed
-                transition={{ duration: 0.3 }}
-                style={{ zIndex: 50 }} // Ensure the line appears on top
-              />
-              <motion.div
-                className="w-6 h-0.5 bg-black"
-                animate={{ opacity: isOpen ? 0 : 1 }}
-                transition={{ duration: 0.3 }}
-                style={{ zIndex: 50 }} // Ensure the line appears on top
-              />
-              <motion.div
-                className="w-6 h-0.5 bg-black"
-                animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -10 : 0 }} // Adjust y values as needed
-                transition={{ duration: 0.3 }}
-                style={{ zIndex: 50 }} // Ensure the line appears on top
-              />
-            </button>
-       
-          <motion.div
-          className="fixed inset-0 bg-black z-30"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isOpen ? 0.5 : 0 }}
-          transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isOpen ? 'auto' : 'none' }} 
-          onClick={() => {
-            if (isOpen) {
-              setIsOpen(false) // Close cart when overlay is clicked
-            }
-        }}
-          // Prevents interaction with the background when closed
-        />
+              className="fixed inset-0 bg-black z-30"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isOpen ? 0.5 : 0 }}
+              transition={{ duration: 0.2 }}
+              style={{ pointerEvents: isOpen ? 'auto' : 'none' }} 
+              onClick={() => {
+                if (isOpen) {
+                  setIsOpen(false) // Close cart when overlay is clicked
+                }
+            }}
+              // Prevents interaction with the background when closed
+            />
           {/* Menu Drawer for Mobile */}
           <div className={`fixed top-0 left-0 w-full h-full z-30 ${isOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
             {/* This div will close the sidebar when clicked */}
             <motion.div
              className="fixed top-0 left-0 h-full w-[64%] md:w-[40%] shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
-             initial={{ opacity: 0, x: '100%' }}
+             initial={{ opacity: 0, x: '-100%' }}
              animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : '-100%' }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the outer div
@@ -622,9 +624,11 @@ const TestTwoHeader = () => {
                   ) : filteredProducts.length > 0 ? (
                     filteredProducts.map((product) => (
                       <div key={product.sku} className="bg-white p-4 rounded text-center hover:cursor-pointer">
+                        <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`} onClick={() => dispatch(toggleSearchMenu())}>
                         <Image src={product.image} alt={product.name} width={200} height={150} className="mx-auto mb-2" />
                         <h3 className="font-bold">{product.name}</h3>
                         <p className="text-gray-600 mt-2">Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
+                        </Link>
                         <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white' onClick={() => handleAddToCart(product)}>Add to cart</button>
                       </div>
                     ))
@@ -662,7 +666,7 @@ const TestTwoHeader = () => {
         />
           
             <motion.div
-             className="fixed top-0 right-0 w-[88%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
+             className="fixed top-0 right-0 w-[88%] h-full shadow-md bg-white text-black flex flex-col pt-8 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isUserOpen ? 1 : 0, x: isUserOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
@@ -863,7 +867,7 @@ const TestTwoHeader = () => {
                 }}
               />
                 <div className="absolute top-1 right-0 md:right-6 md:top-1 2xl:hidden xl:hidden lg:hidden bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                {cartItems.length}
+                {cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0}
             </div>
         </div>
         <motion.div
@@ -881,11 +885,11 @@ const TestTwoHeader = () => {
           {/* Menu Drawer for Cart */}
             {/* This div will close the sidebar when clicked */}
             <motion.div
-             className="fixed top-0 right-0 w-[80%] 2xl:w-[20%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
+             className="fixed top-0 right-0 w-[80%] 2xl:w-[20%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-6 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isCartOpen ? 1 : 0, x: isCartOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
-            > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length})</h2>
+            > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0})</h2>
             {cartItems.length > 0 ? (
             <div className="flex flex-col flex-grow space-y-4">
               {/* Cart items */}
@@ -903,14 +907,14 @@ const TestTwoHeader = () => {
 
                       {/* Product Details */}
                       <div>
-                        <h3 className="font-semibold text-sm 2xl:text-md xl:text-md">{item.name}</h3>
-                        <p className="text-sm">
+                        <h3 className="font-semibold text-sm">{item.name}</h3>
+                        <p className='text-sm'>
                           Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(item.price)}
                         </p>
-                        <div className="flex items-center">
+                        <div className="flex items-center space-x-6">
                           <button
                             onClick={() => dispatch(decreaseQuantity(item.id))}
-                            className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
+                            className="rounded-full border-gray-100 border-2 bg-gray-100"
                           >
                             {item.quantity > 1 ? (
                               <Image src={minusicon} alt="Decrease quantity" width={20} height={20} />
@@ -921,7 +925,7 @@ const TestTwoHeader = () => {
                           <span className="m-2">{item.quantity}</span>
                           <button
                             onClick={() => dispatch(incrementQuantity(item.id))}
-                            className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
+                            className="rounded-full border-gray-100 border-2 bg-gray-100"
                           >
                             <Image src={plusicon} alt="Increase quantity" width={20} height={20} />
                           </button>
@@ -954,9 +958,9 @@ const TestTwoHeader = () => {
                   Checkout
                 </button>
               </div>
-    </div>
+            </div>
             ) : (
-              <p className='p-5'>Your cart is empty.</p>
+              <p className='pt-16 text-center'>Your cart is empty.</p>
             )}
             </motion.div>
             
