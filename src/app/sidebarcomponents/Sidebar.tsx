@@ -7,8 +7,6 @@ import analyticsicon from '@/app/assets/icons/icons8-sales-50.png';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';  // Use usePathname from next/navigation
 import Image from 'next/image';
-import downarrow from '@/app/assets/icons/downarrow.png';
-import uparrow from '@/app/assets/icons/uparrow.png';
 import settingscon from '@/app/assets/icons/icons8-settings-50.png';
 
 const Sidebar = () => {

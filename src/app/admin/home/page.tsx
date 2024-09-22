@@ -1,4 +1,3 @@
-import AddProducts from "@/app/productscomponents/AddProducts";
 import HeaderBar from "@/app/sidebarcomponents/HeaderBar";
 import Sidebar from "@/app/sidebarcomponents/Sidebar";
 

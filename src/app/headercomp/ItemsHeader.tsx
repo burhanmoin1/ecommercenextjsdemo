@@ -1,7 +1,6 @@
 'use client';
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { motion } from 'framer-motion';
 
 const ItemsHeader = () => {
     const [hoveredItem, setHoveredItem] = useState<string | null>(null);

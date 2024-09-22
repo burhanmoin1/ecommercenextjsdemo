@@ -4,8 +4,6 @@ import searchIcon from '@/app/assets/icons/icons8-search-64.png'; // Update path
 import bellIcon from '@/app/assets/icons/icons8-bell-24.png'; // Update path as needed
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import downarrow from '@/app/assets/icons/downarrow.png';
-import uparrow from '@/app/assets/icons/uparrow.png';
 import Link from 'next/link';
 import homeicon from '@/app/assets/icons/icons8-home-32.png';
 import inventoryicon from '@/app/assets/icons/icons8-tag-50.png';

@@ -4,7 +4,7 @@ import products from '../utils/common';
 import { Product } from '../utils/common';
 import filtericon from '@/app/assets/icons/filtericon.png';
 import xicon from '@/app/assets/icons/xicon.png';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Select from 'react-select';
 import { useParams } from 'next/navigation';

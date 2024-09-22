@@ -1,6 +1,4 @@
-import ProductForm from "@/app/components/ProductForm";
 import UpdateProductForm from "@/app/components/ProductUpdateForm";
-import ProductUpdateForm from "@/app/components/ProductUpdateForm";
 import HeaderBar from "@/app/sidebarcomponents/HeaderBar";
 import Sidebar from "@/app/sidebarcomponents/Sidebar";
 

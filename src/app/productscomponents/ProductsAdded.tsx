@@ -17,7 +17,7 @@ type SortOrder = 'asc' | 'desc';
 
 interface Product {
   selling_price: ReactNode;
-  product_id: any;
+  product_id: string;
   id: string;
   name: string;
   status: string;

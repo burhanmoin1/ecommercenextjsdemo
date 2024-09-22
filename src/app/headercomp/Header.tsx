@@ -24,14 +24,12 @@ import { toggleSearchMenu } from '../redux/slices/searchSlice';
 
 
 const TestTwoHeader = () => {
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
   const isCartOpen = useSelector((state: RootState) => state.cart.isCartOpen);
-  const cartItemCount = useSelector((state: RootState) => state.cart.items.length);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const isSearchOpen = useSelector((state: RootState) => state.search.isSearchOpen);
 
@@ -281,7 +279,7 @@ const TestTwoHeader = () => {
                     LOGIN
                   </button>
                   <h2 className='text-sm text-center mt-4'>
-                    Don't have an account? 
+                    Don&apos;t have an account? 
                     <span className='underline hover:cursor-pointer ml-2' onClick={toggleForm}>Register</span>
                   </h2>
                 </div>
@@ -674,7 +672,7 @@ const TestTwoHeader = () => {
                   LOGIN
                 </button>
                 <h2 className='text-sm text-center mt-4'>
-                  Don't have an account? 
+                  Don&apos;t have an account? 
                   <span className='underline hover:cursor-pointer ml-2' onClick={toggleForm}>Register</span>
                 </h2>
               </div>
