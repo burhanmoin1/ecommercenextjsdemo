@@ -7,8 +7,10 @@ import xicon from '@/app/assets/icons/xicon.png';
 import Image, { StaticImageData } from 'next/image';
 import { motion } from 'framer-motion';
 import Select from 'react-select';
+import { useParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { addToCart, toggleCartMenu } from '../redux/slices/cartSlice'; 
+import { addToCart, toggleCartMenu } from '../redux/slices/cartSlice';
+
 
 // Function to count occurrences
 const countOccurrences = (arr: string[]) => {
@@ -43,12 +45,16 @@ const customStyles = {
     }),
   };
 
-const ProductTest: React.FC = () => {
+const CategoryProductsTest: React.FC = () => {
     // Collect all categories and brands
-    const secondaryCategories = products.map(product => product.secondary_category);
-    const brands = products.map(product => product.brand);
+    
+    const { category } = useParams();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [columns, setColumns] = useState(4); // Start with 4 columns
+
+    const formatCategory = (categoryParam: string) => {
+        return categoryParam.replace(/-/g, ' '); // Replaces all dashes with spaces
+    };
 
     const dispatch = useDispatch();
 
@@ -65,6 +71,12 @@ const ProductTest: React.FC = () => {
         dispatch(toggleCartMenu());
       };
 
+    const formattedCategory = Array.isArray(category) 
+    ? decodeURIComponent(formatCategory(category[0] || '')) 
+    : decodeURIComponent(formatCategory(category || ''));
+        console.log(formattedCategory)
+
+
     const handleColumnChange = (newColumns: number) => {
         setColumns(newColumns);
     };
@@ -74,12 +86,7 @@ const ProductTest: React.FC = () => {
     const handlemobileColumnChange = (newmobileColumns: number) => {
         setMobileColumns(newmobileColumns);
     };
-    // Count occurrences
-    const secondaryCount = countOccurrences(secondaryCategories);
-    const brandCount = countOccurrences(brands);
     
-    // State for selected filters
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
     useEffect(() => {
@@ -109,33 +116,44 @@ const ProductTest: React.FC = () => {
 
     const toggleFilterMenu = () => setIsFilterOpen(!isFilterOpen);
     // Handle checkbox changes for categories
-    const handleCategoryChange = (category: string) => {
-        setSelectedCategories(prev => 
-            prev.includes(category) 
-                ? prev.filter(c => c !== category) 
-                : [...prev, category]
-        );
-    };
-
-    // Handle checkbox changes for brands
-    const handleBrandChange = (brand: string) => {
-        setSelectedBrands(prev => 
-            prev.includes(brand) 
-                ? prev.filter(b => b !== brand) 
-                : [...prev, brand]
-        );
-    };
-
+    
+   
     // Handle sorting option change
     const handleSortChange = (selectedOption: any) => {
         setSortOption(selectedOption.value);
       };
 
     // Filter products based on selected categories and brands
-    let filteredProducts = products.filter(product => 
-        (selectedCategories.length === 0 || selectedCategories.includes(product.secondary_category)) &&
-        (selectedBrands.length === 0 || selectedBrands.includes(product.brand))
-    );
+    let filteredProducts = products.filter(product => {
+        // Check if the product matches the category
+        const matchesCategory = 
+            product.primary_category.toLowerCase() === formattedCategory.toLowerCase() || 
+            product.secondary_category.toLowerCase() === formattedCategory.toLowerCase();
+    
+        // Check if there are no selected brands or the product's brand is in the selected brands
+        const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
+    
+        // Only return products that match both category and brand conditions
+        return matchesCategory && matchesBrand;
+    });
+    
+    const brands = products // Use the full product list, not the filtered one
+        .filter(product => 
+            product.primary_category.toLowerCase() === formattedCategory.toLowerCase() || 
+            product.secondary_category.toLowerCase() === formattedCategory.toLowerCase()
+        )
+        .map(product => product.brand);
+    
+    const brandCount = countOccurrences(brands);
+
+     // Handle checkbox changes for brands
+     const handleBrandChange = (brand: string) => {
+        setSelectedBrands(prev => 
+            prev.includes(brand) 
+                ? prev.filter(b => b !== brand) 
+                : [...prev, brand]
+        );
+    };
 
     // Sort products based on the selected sort option
     filteredProducts = filteredProducts.sort((a, b) => {
@@ -157,23 +175,7 @@ const ProductTest: React.FC = () => {
                
                 {/* Filter Section */}
                 <div className="w-[16%] 2xl:w-[20%] xl:w-[40%] mt-20 h-[60vh] hidden xl:block 2xl:block overflow-y-auto p-4">
-                    {/* Categories */}
-                    <h2 className="border-b-2 border-black w-[30%] font-semibold">Categories</h2>
-                    <ul className='mt-2'>
-                        {Object.entries(secondaryCount).map(([category, count]) => (
-                            <li key={category} className='text-sm flex items-center'>
-                            <label className="flex items-center cursor-pointer">
-                                <input 
-                                    type="checkbox" 
-                                    className="mr-2" 
-                                    checked={selectedCategories.includes(category)}
-                                    onChange={() => handleCategoryChange(category)}
-                                />
-                                {category} ({count})
-                            </label>
-                        </li>
-                        ))}
-                    </ul>
+
                     {/* Brands */}
                     <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
                     <ul className='mt-2'>
@@ -192,7 +194,7 @@ const ProductTest: React.FC = () => {
                         ))}
                     </ul>
                 </div>
-                <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-6 tracking-tighter 2xl:hidden xl:hidden'>All Products</h2>
+                <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-6 tracking-tighter 2xl:hidden xl:hidden'>{formattedCategory}</h2>
                 {/* Products Display Section */}
                 <div className="2xl:w-[84%] xl:w-[140%] p-4 overflow-y-auto">
                     <div className='flex justify-between items-center 2xl:border-0 xl:border-0 lg:border-0 pb-4'>
@@ -225,22 +227,6 @@ const ProductTest: React.FC = () => {
                             </div>
                                 <Image src={xicon} alt='X icon' width={20} height={10} className='pb-0 hover:cursor-pointer' onClick={toggleFilterMenu} />
                             </div>
-                            <h2 className="border-b-2 border-black w-[30%] font-semibold">Categories</h2>
-                            <ul className='mt-2'>
-                                {Object.entries(secondaryCount).map(([category, count]) => (
-                                    <li key={category} className='text-sm flex items-center'>
-                                    <label className="flex items-center cursor-pointer">
-                                        <input 
-                                            type="checkbox" 
-                                            className="mr-2" 
-                                            checked={selectedCategories.includes(category)}
-                                            onChange={() => handleCategoryChange(category)}
-                                        />
-                                        {category} ({count})
-                                    </label>
-                                </li>
-                                ))}
-                            </ul>
                             {/* Brands */}
                             <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
                             <ul className='mt-2'>
@@ -292,7 +278,7 @@ const ProductTest: React.FC = () => {
                             />
                         </h2>
                     </div>
-                    <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-12 hidden 2xl:block xl:block'>All Products</h2>
+                    <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-12 hidden 2xl:block xl:block'>{formattedCategory}</h2>
                     <div className='2xl:flex xl:flex justify-between items-center hidden mt-4'>
                         <div className='flex space-x-4'><span>View as: </span>
                             {/* 2 Column Layout */}
@@ -338,7 +324,7 @@ const ProductTest: React.FC = () => {
                                     <Image src={product.image} alt={product.name} width={600} height={100} className='w-full object-cover' />
                                     <h3 className='font-bold text-center'>{product.name}</h3>
                                     <p className='text-center mt-2'>Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
-                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white'  onClick={() => handleAddToCart(product)}>Add to cart</button>
+                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white' onClick={() => handleAddToCart(product)}>Add to cart</button>
                                 </motion.div>
                             ))
                         ) : (
@@ -351,4 +337,4 @@ const ProductTest: React.FC = () => {
     );
 };
 
-export default ProductTest;
+export default CategoryProductsTest;

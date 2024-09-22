@@ -31,7 +31,7 @@ const ItemsHeader = () => {
                     onMouseEnter={() => handleMouseEnter(item)}
                     onMouseLeave={handleMouseLeave}
                 >
-                    <Link href={`/${item.toLowerCase()}`}>
+                    <Link href={`/products/${item}`}>
                         <p className={`p-8 text-black cursor-pointer font-semibold transition-opacity duration-300 ${hoveredItem === item ? 'opacity-50' : 'opacity-100'}`}>
                             {item}
                         </p>
@@ -52,8 +52,12 @@ const ItemsHeader = () => {
                         onMouseLeave={handleMouseLeave}
                     >
                         <div className="flex p-4">
-                            <Link href="/products/chocolate">
+                            <Link href="/products/Chocolate">
                                 <p className="px-4 py-2 hover:underline cursor-pointer">Chocolate</p>
+                            </Link>
+                            <Link href="/products/Candies,-Gums-&-Mints">
+                                <p className="px-4 py-2 hover:underline cursor-pointer">Candies, Gums & Mints
+                                </p>
                             </Link>
                         </div>
                     </div>

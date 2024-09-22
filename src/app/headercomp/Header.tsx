@@ -4,27 +4,40 @@ import Link from "next/link";
 import Logo from '@/app/assets/icons/logo.png';
 import downarrow from '@/app/assets/icons/downarrow.png';
 import uparrow from '@/app/assets/icons/uparrow.png';
+import trashicon from '@/app/assets/icons/trashicon.png';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { toggleCartMenu, removeFromCart, addToCart, decreaseQuantity, incrementQuantity  } from '../redux/slices/cartSlice';
 import searchIcon from '@/app/assets/icons/searchblack.png'; // Update path as needed
 import usericon from '@/app/assets/icons/usericon.png';
 import carticon from '@/app/assets/icons/carticon.png';
 import xicon from '@/app/assets/icons/xicon.png';
 import mailicon from '@/app/assets/icons/mailicon.png';
 import lockicon from '@/app/assets/icons/lockicon.png';
+import plusicon from '@/app/assets/icons/plusicon.png';
+import minusicon from '@/app/assets/icons/minusicon.png';
 import { motion } from 'framer-motion';
 import { Product } from '../utils/common';
 import Image from 'next/image';
 import products from '../utils/common';
+import { toggleSearchMenu } from '../redux/slices/searchSlice';
 
 
 const TestTwoHeader = () => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const isCartOpen = useSelector((state: RootState) => state.cart.isCartOpen);
+  const cartItemCount = useSelector((state: RootState) => state.cart.items.length);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const isSearchOpen = useSelector((state: RootState) => state.search.isSearchOpen);
+
+  const dispatch = useDispatch();
+
+    
 
   // Focus the search input when the search menu is toggled open
   useEffect(() => {
@@ -45,7 +58,7 @@ const TestTwoHeader = () => {
   };
 
   useEffect(() => {
-    if (isOpen || isCartOpen || isUserOpen || isSearchOpen) {
+    if (isOpen || isUserOpen || isSearchOpen) {
       // Disable scrolling on the main page when the menu is open
       document.body.style.overflow = 'hidden';
     } else {
@@ -57,13 +70,25 @@ const TestTwoHeader = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen, isCartOpen, isUserOpen, isSearchOpen]);
+  }, [isOpen, isUserOpen, isSearchOpen]);
 
   const toggleUserMenu = () => setIsUserOpen(!isUserOpen);
   const toggleMenu = () => setIsOpen(!isOpen);
-  const toggleCartMenu = () => setIsCartOpen(!isCartOpen);
-  const toggleSearchMenu = () => setIsSearchOpen(!isSearchOpen);
   const [isRegister, setIsRegister] = useState(false);
+
+  const handleAddToCart = (product: Product) => {
+    const cartItem = { 
+      id: product.sku, 
+      name: product.name, 
+      price: product.selling_price, 
+      quantity: 1,
+      image: product.image
+    };
+  
+    dispatch(addToCart(cartItem));
+    dispatch(toggleCartMenu());
+    dispatch(toggleSearchMenu());
+  };
 
   const toggleForm = () => {
     setIsRegister((prev) => !prev);
@@ -118,7 +143,7 @@ const TestTwoHeader = () => {
         <div className="flex items-center hover:cursor-pointer">
 
         <div className="relative items-center flex 2xl:mr-8 xl:mr-4 lg:mr-4"
-        onClick={toggleSearchMenu}>
+        onClick={() => dispatch(toggleSearchMenu())} >
           <input
             type="text"
             placeholder="Search"
@@ -156,7 +181,7 @@ const TestTwoHeader = () => {
                   <Image src={searchIcon.src} alt="Search Icon" width={16} height={16} className="absolute left-2 lg:left-3" />
                 </div>
                 {/* Cancel Button */}
-                <div className='flex items-center space-x-2 hover:cursor-pointer' onClick={toggleSearchMenu}>
+                <div className='flex items-center space-x-2 hover:cursor-pointer' onClick={() => dispatch(toggleSearchMenu())} >
                  
                   <Image src={xicon} alt='X icon' width={24} height={24} />
                 </div>
@@ -178,6 +203,7 @@ const TestTwoHeader = () => {
                         <Image src={product.image} alt={product.name} width={200} height={150} className="mx-auto mb-2" />
                         <h3 className="font-bold">{product.name}</h3>
                         <p className="text-gray-600 mt-2">Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
+                        <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white'  onClick={() => handleAddToCart(product)}>Add to cart</button>
                       </div>
                     ))
                   ) : (
@@ -403,11 +429,11 @@ const TestTwoHeader = () => {
                 width={22} 
                 height={10} 
                 className={`hover:cursor-pointer z-50 ${isUserOpen ? 'opacity-0' : '' } ${isSearchOpen ? 'opacity-0' : '' }`}
-                onClick={toggleCartMenu}
+                onClick={() => dispatch(toggleCartMenu())}
                 />
                  {/* Cart count circle */}
                     <div className="relative 2xl:absolute 2xl:top-[1.2rem] 2xl:right-[5.8rem] xl:-top-2 xl:right-[2.5rem] lg:right-[2.5rem] lg:-top-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                        0 {/* Replace 0 with dynamic cart count */}
+                    {cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0}
                     </div>
                 <motion.div
           className="fixed inset-0 bg-black z-30 translate-x-[-50px] w-full"
@@ -475,7 +501,7 @@ const TestTwoHeader = () => {
                 {/* Services Accordion */}
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('services')}>
-                    <Link href="#" className="text-xl py-2">Services</Link>
+                    <Link href="#" className="text-xl py-2">Food Cupboard</Link>
                     <Image
                       src={activeSection === 'services' ? uparrow : downarrow}
                       alt={activeSection === 'services' ? 'Up arrow' : 'Down arrow'}
@@ -488,10 +514,9 @@ const TestTwoHeader = () => {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="pl-2 py-2">
-                      <Link href="#" className="block py-1 text-black">Service 1</Link>
-                      <Link href="#" className="block py-1 text-black">Service 2</Link>
-                      <Link href="#" className="block py-1 text-black">Service 3</Link>
+                    <div className="pl-2 py-2 text-lg">
+                      <Link href="/products/Chocolate" className="block py-1 text-black">Chocolate</Link>
+                      <Link href="/products/Candies,-Gums-&-Mints" className="block py-1 text-black">Candies, Gums & Mints</Link>
                     </div>
                   </motion.div>
                 </div>
@@ -499,7 +524,7 @@ const TestTwoHeader = () => {
                 {/* Products Accordion */}
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('products')}>
-                    <Link href="#" className="text-xl py-2">Products</Link>
+                    <Link href="#" className="text-xl py-2">Health & Beauty</Link>
                     <Image
                       src={activeSection === 'products' ? uparrow : downarrow}
                       alt={activeSection === 'products' ? 'Up arrow' : 'Down arrow'}
@@ -512,10 +537,8 @@ const TestTwoHeader = () => {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="pl-2 py-2">
-                      <Link href="#" className="block py-1 text-black">Product 1</Link>
-                      <Link href="#" className="block py-1 text-black">Product 2</Link>
-                      <Link href="#" className="block py-1 text-black">Product 3</Link>
+                    <div className="pl-2 py-2 text-lg">
+                      <Link href="/products/Face-&-Skin-Care" className="block py-1 text-black">Face & Skin Care</Link>
                     </div>
                   </motion.div>
                 </div>
@@ -536,7 +559,7 @@ const TestTwoHeader = () => {
         </div>
             </div>
             <div className={`2xl:hidden xl:hidden lg:hidden md:flex md:mr-10 flex space-x-3 mr-10 ${isCartOpen ? 'mt-2' : ''}`}>
-            <Image src={searchIcon} alt='Searc ico' width={24} height={6} onClick={toggleSearchMenu} />
+            <Image src={searchIcon} alt='Searc ico' width={24} height={6} onClick={() => dispatch(toggleSearchMenu())} />
             <motion.div
              initial={{ opacity: 0}}
             className="fixed inset-0 bg-black z-30 w-full"
@@ -562,7 +585,7 @@ const TestTwoHeader = () => {
               />
               <Image src={searchIcon.src} alt="Search Icon" width={16} height={16} className="absolute left-5" />
              
-            <Image src={xicon} alt='X icon' width={24} height={24} onClick={toggleSearchMenu} />
+            <Image src={xicon} alt='X icon' width={24} height={24} onClick={() => dispatch(toggleSearchMenu())}  />
             </div>
             {searchQuery !== '' && filteredProducts.length > 0 && (
             <div className="flex justify-between w-full max-w-5xl px-4 pt-6">
@@ -580,6 +603,7 @@ const TestTwoHeader = () => {
                         <Image src={product.image} alt={product.name} width={200} height={150} className="mx-auto mb-2" />
                         <h3 className="font-bold">{product.name}</h3>
                         <p className="text-gray-600 mt-2">Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
+                        <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-2 hover:bg-[#3c3f74] hover:text-white' onClick={() => handleAddToCart(product)}>Add to cart</button>
                       </div>
                     ))
                   ) : (
@@ -795,11 +819,11 @@ const TestTwoHeader = () => {
                 alt={isCartOpen ? 'Close Cart' : 'Cart Icon'} 
                 width={24} height={6}
                 className={`hover:cursor-pointer z-50 ${isUserOpen ? 'opacity-0' : '' } ${isSearchOpen ? 'opacity-0' : '' }`}
-                onClick={toggleCartMenu}
+                onClick={() => dispatch(toggleCartMenu())}
                 />
                 <div className="absolute top-1 right-0 md:right-6 md:top-1 2xl:hidden xl:hidden lg:hidden bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                        0 {/* Replace 0 with dynamic cart count */}
-                    </div>
+              {cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0}
+            </div>
         </div>
         <motion.div
           className="fixed inset-0 bg-black z-30 w-full"
@@ -815,8 +839,69 @@ const TestTwoHeader = () => {
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isCartOpen ? 1 : 0, x: isCartOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
-            ><h2 className='font-bold m-4 text-xl'>Your Bag (0)</h2>
-            <p className='W ml-4'>Not sure where to start?<span className='hover:cursor-pointer font-bold' onClick={toggleCartMenu}> Browse categories</span></p></motion.div>
+            > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length})</h2>
+            {cartItems.length > 0 ? (
+              <div className='flex flex-col h-full space-y-4'>
+              {cartItems.map((item) => (
+                <div key={item.id} className='flex items-center justify-between p-4 border-b'>
+                  {/* Product Image */}
+                  <div className='flex items-center space-x-4'>
+                    <Image 
+                      src={item.image} // Make sure the item contains an image field
+                      alt={item.name}
+                      width={80}
+                      height={80}
+                      className='object-cover w-20 h-20'
+                    />
+            
+                    {/* Product Details */}
+                    <div>
+                    <h3 className='font-semibold text-sm 2xl:text-md xl:text-md'>{item.name}</h3>
+                    <p className='text-sm'>Rs. {item.price}</p>
+                    <div className="flex items-center">
+                    <button
+                        onClick={() => dispatch(decreaseQuantity(item.id))}
+                        className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
+                      >
+                        {item.quantity > 1 ? (
+                          <Image src={minusicon} alt="Decrease quantity" width={20} height={20} />
+                        ) : (
+                          <Image src={trashicon} alt="Remove" width={20} height={20} />
+                        )}
+                      </button>
+                    <span className="m-2">{item.quantity}</span>
+                    <button
+                      onClick={() => dispatch(incrementQuantity(item.id))} // Increment quantity
+                      className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
+                    >
+                      <Image src={plusicon} alt="Decrease quantity" width={20} height={20} />
+                    </button>
+                  </div>
+                  </div>
+                  </div>
+                  {/* Remove Button */}
+                  <button 
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className='text-red-500 hover:underline'
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+               <div className="flex flex-col p-4">
+                  <h3 className='font-semibold mt-24'>Order Total: Rs. {cartItems.reduce((total, item) => total + item.price * item.quantity, 0)}</h3>
+                  <button
+                    className='bg-black text-white px-4 py-2 mt-4 rounded border-black border hover:bg-[#3c3f74]'
+                    onClick={() => { /* Checkout functionality will go here later */ }}
+                  >
+                    Checkout
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p className='p-5'>Your cart is empty.</p>
+            )}
+            </motion.div>
             
         
     </header>

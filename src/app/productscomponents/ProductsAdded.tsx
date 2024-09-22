@@ -5,7 +5,7 @@ import filterIcon from '@/app/assets/icons/filter-black.png';
 import sortgray from '@/app/assets/icons/icons8-sort-100.png';
 import downarrow from '@/app/assets/icons/downarrow.png';
 import uparrow from '@/app/assets/icons/uparrow.png';
-import trashicon from '@/app/assets/icons/icons8-trash-50.png';
+import trashicon from '@/app/assets/icons/trashicon.png';
 import pencilicon from '@/app/assets/icons/icons8-pencil-50.png';
 import React, { useState, useEffect, ReactNode } from 'react';
 import AddProducts from "./AddProducts";

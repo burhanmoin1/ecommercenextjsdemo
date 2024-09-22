@@ -2,6 +2,8 @@ import DamakGece from '@/app/assets/productimages/DamakGece.jpg';
 import oreosandw from '@/app/assets/productimages/oreosandw.jpg';
 import Depufff from '@/app/assets/productimages/De-pufff.jpg';
 import LindtVegan100g from '@/app/assets/productimages/LindtVegan100g.jpg';
+import WrigleysExtraRefreshers from '@/app/assets/productimages/WrigleysExtraRefreshers.jpg';
+
 import { StaticImageData } from 'next/image';
 
 export interface Product {
@@ -51,6 +53,16 @@ const products: Product[] = [
       selling_price: 2200.00,
       image: LindtVegan100g,
   },
+  {
+    name: "Wrigley's Extra Refresher's Strawberry Lemon Gum 30s",
+    brand: "Wrigley's",
+    sku: '4009900544580',
+    primary_category: 'Food Cupboard',
+    secondary_category: 'Candies, Gums & Mints',
+    selling_price: 1390.00,
+    image: WrigleysExtraRefreshers,
+},
+  
 ];
 
   

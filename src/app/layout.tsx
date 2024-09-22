@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import {Inria_Sans, Inter, DM_Sans, } from "next/font/google";
+import { StoreProvider } from "./redux/StoreProvider";
 
 const Inria = DM_Sans({
   weight: ["400", '600', '700'],
@@ -26,11 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <StoreProvider>
       <body
         className={Inria.className}
       >
         {children}
       </body>
+      </StoreProvider>
     </html>
   );
 }
