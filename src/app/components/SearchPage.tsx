@@ -117,12 +117,14 @@ const SearchPage: React.FC = () => {
         setSortOption(selectedOption.value);
       };
 
-    let filteredProducts = products.filter(product => {
+      const searchQuery = Array.isArray(query) ? query.join(' ') : query;
+    
+      // Match using toLowerCase
+      
+
+      let filteredProducts = products.filter(product => {
         // Match the product with the search query
         const productName = Array.isArray(product.name) ? product.name.join(' ') : product.name;
-        const searchQuery = Array.isArray(query) ? query.join(' ') : query;
-
-        // Now you can safely use toLowerCase()
         const matchesQuery = productName.toLowerCase().includes(searchQuery.toLowerCase());
     
         // Check if there are no selected brands or the product's brand is in the selected brands
@@ -130,13 +132,18 @@ const SearchPage: React.FC = () => {
     
         // Only return products that match both query and brand conditions
         return matchesQuery && matchesBrand;
-      });
+    });
     
-      // Extract brands from the filtered products
-      const brands = filteredProducts.map(product => product.brand);
+    // Extract brands from the full product list based on the search query
+    const brands = products
+        .filter(product => {
+            const productName = Array.isArray(product.name) ? product.name.join(' ') : product.name;
+            return productName.toLowerCase().includes(searchQuery.toLowerCase());
+        })
+        .map(product => product.brand);
     
-      // Count brand occurrences
-      const brandCount = countOccurrences(brands);
+    // Count brand occurrences
+    const brandCount = countOccurrences(brands);
     
       // Handle checkbox changes for brands
       const handleBrandChange = (brand: string) => {
