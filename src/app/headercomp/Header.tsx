@@ -56,7 +56,7 @@ const TestTwoHeader = () => {
   };
 
   useEffect(() => {
-    if (isOpen || isUserOpen || isSearchOpen) {
+    if (isOpen || isUserOpen || isSearchOpen || isCartOpen) {
       // Disable scrolling on the main page when the menu is open
       document.body.style.overflow = 'hidden';
     } else {
@@ -68,7 +68,7 @@ const TestTwoHeader = () => {
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen, isUserOpen, isSearchOpen]);
+  }, [isOpen, isUserOpen, isSearchOpen, isCartOpen]);
 
   const toggleUserMenu = () => setIsUserOpen(!isUserOpen);
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -234,7 +234,7 @@ const TestTwoHeader = () => {
           style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
         />
             <motion.div
-             className="fixed top-0 right-0 2xl:w-[28%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40 hover:cursor-default"
+             className="fixed top-0 right-0 2xl:w-[26%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40 hover:cursor-default"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isUserOpen ? 1 : 0, x: isUserOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
@@ -854,69 +854,74 @@ const TestTwoHeader = () => {
           {/* Menu Drawer for Cart */}
             {/* This div will close the sidebar when clicked */}
             <motion.div
-             className="fixed top-0 right-0 w-[80%] 2xl:w-[24%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
+             className="fixed top-0 right-0 w-[80%] 2xl:w-[20%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isCartOpen ? 1 : 0, x: isCartOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
             > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length})</h2>
             {cartItems.length > 0 ? (
-              <div className='flex flex-col h-full space-y-4'>
-              {cartItems.map((item) => (
-                <div key={item.id} className='flex items-center justify-between p-4 border-b'>
-                  {/* Product Image */}
-                  <div className='flex items-center space-x-4'>
-                    <Image 
-                      src={item.image} // Make sure the item contains an image field
-                      alt={item.name}
-                      width={80}
-                      height={80}
-                      className='object-cover w-20 h-20'
-                    />
-            
-                    {/* Product Details */}
-                    <div>
-                    <h3 className='font-semibold text-sm 2xl:text-md xl:text-md'>{item.name}</h3>
-                    <p className='text-sm'>Rs. {item.price}</p>
-                    <div className="flex items-center">
+            <div className="flex flex-col flex-grow space-y-4 px-4">
+              {/* Cart items */}
+              <div className="flex-grow flex flex-col space-y-4 overflow-auto">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex items-center justify-between p-4 border-b">
+                    <div className="flex items-center space-x-4">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        width={80}
+                        height={80}
+                        className="object-cover w-20 h-20"
+                      />
+
+                      {/* Product Details */}
+                      <div>
+                        <h3 className="font-semibold text-sm 2xl:text-md xl:text-md">{item.name}</h3>
+                        <p className="text-sm">Rs. {item.price}</p>
+                        <div className="flex items-center">
+                          <button
+                            onClick={() => dispatch(decreaseQuantity(item.id))}
+                            className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
+                          >
+                            {item.quantity > 1 ? (
+                              <Image src={minusicon} alt="Decrease quantity" width={20} height={20} />
+                            ) : (
+                              <Image src={trashicon} alt="Remove" width={20} height={20} />
+                            )}
+                          </button>
+                          <span className="m-2">{item.quantity}</span>
+                          <button
+                            onClick={() => dispatch(incrementQuantity(item.id))}
+                            className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
+                          >
+                            <Image src={plusicon} alt="Increase quantity" width={20} height={20} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Remove Button */}
                     <button
-                        onClick={() => dispatch(decreaseQuantity(item.id))}
-                        className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
-                      >
-                        {item.quantity > 1 ? (
-                          <Image src={minusicon} alt="Decrease quantity" width={20} height={20} />
-                        ) : (
-                          <Image src={trashicon} alt="Remove" width={20} height={20} />
-                        )}
-                      </button>
-                    <span className="m-2">{item.quantity}</span>
-                    <button
-                      onClick={() => dispatch(incrementQuantity(item.id))} // Increment quantity
-                      className="p-1 rounded-full border-gray-100 border-2 bg-gray-100"
+                      onClick={() => dispatch(removeFromCart(item.id))}
+                      className="text-red-500 hover:underline"
                     >
-                      <Image src={plusicon} alt="Decrease quantity" width={20} height={20} />
+                      Remove
                     </button>
                   </div>
-                  </div>
-                  </div>
-                  {/* Remove Button */}
-                  <button 
-                    onClick={() => dispatch(removeFromCart(item.id))}
-                    className='text-red-500 hover:underline'
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
-               <div className="flex flex-col p-4">
-                  <h3 className='font-semibold mt-24'>Order Total: Rs. {cartItems.reduce((total, item) => total + item.price * item.quantity, 0)}</h3>
-                  <button
-                    className='bg-black text-white px-4 py-2 mt-4 rounded border-black border hover:bg-[#3c3f74]'
-                    onClick={() => { /* Checkout functionality will go here later */ }}
-                  >
-                    Checkout
-                  </button>
-                </div>
+                ))}
               </div>
+
+              {/* Checkout Details */}
+              <div className="p-4 mt-auto border-t-2">
+                <h3 className="font-semibold">Order Summary: Rs. {cartItems.reduce((total, item) => total + item.price * item.quantity, 0)}</h3>
+                <button
+                  className="bg-black text-white px-4 w-full py-2 mt-4 rounded border-black border hover:bg-[#3c3f74]"
+                  onClick={() => { /* Checkout functionality */ }}
+                >
+                  Checkout
+                </button>
+              </div>
+    </div>
             ) : (
               <p className='p-5'>Your cart is empty.</p>
             )}
