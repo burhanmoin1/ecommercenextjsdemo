@@ -128,7 +128,7 @@ const TestTwoHeader = () => {
               src={Logo.src}
               alt="Remote Connect Logo"
               className="2xl:h-12 xl:h-12 lg:h-12 md:h-12 mt-3 ml-2"
-              width={100}
+              width={80}
               height={180}
             />
           </Link>
@@ -554,8 +554,8 @@ const TestTwoHeader = () => {
             <Image 
                 src={Logo.src}
                 alt="Remote Connect Logo" 
-                className="h-10 mr-40" 
-                width={80}
+                className="h-10 mr-20" 
+                width={60}
                 height={120}
             />
             </Link>
