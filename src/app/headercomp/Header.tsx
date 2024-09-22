@@ -187,7 +187,12 @@ const TestTwoHeader = () => {
               {searchQuery !== '' && filteredProducts.length > 0 && (
                 <div className="flex justify-between w-full max-w-5xl px-4 ml-96 pt-4">
                   <h2 className="text-lg">Products:</h2>
-                  <h2 className="text-lg font-bold cursor-pointer border-b-2 border-black inline-block">View All</h2>
+                  {/* Search Button */}
+                  <Link href={`/search/${searchQuery}`}>
+                      <h2 className="text-lg font-bold cursor-pointer border-b-2 border-black inline-block" onClick={() => dispatch(toggleSearchMenu())}>
+                        View All
+                      </h2>
+                    </Link>
                 </div>
               )}
               {/* Product display */}
@@ -217,7 +222,7 @@ const TestTwoHeader = () => {
                 alt='User Icon' 
                 width={22} 
                 height={10} 
-                className={`hover:cursor-pointer z-50 ${isCartOpen ? 'opacity-0' : '' } ${isSearchOpen ? 'opacity-0' : '' }`}
+                className={`hover:cursor-pointer z-50 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
                 onClick={toggleUserMenu}
             />
 
@@ -426,7 +431,7 @@ const TestTwoHeader = () => {
                 alt={isCartOpen ? 'Close Cart' : 'Cart Icon'} 
                 width={22} 
                 height={10} 
-                className={`hover:cursor-pointer z-50 ${isUserOpen ? 'opacity-0' : '' } ${isSearchOpen ? 'opacity-0' : '' }`}
+                className={`hover:cursor-pointer z-50 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
                 onClick={() => dispatch(toggleCartMenu())}
                 />
                  {/* Cart count circle */}
@@ -588,7 +593,9 @@ const TestTwoHeader = () => {
             {searchQuery !== '' && filteredProducts.length > 0 && (
             <div className="flex justify-between w-full max-w-5xl px-4 pt-6">
                 <h2 className="text-md">Products:</h2>
-                <h2 className="text-md font-bold cursor-pointer border-b-2 border-black inline-block">View All</h2>
+                <Link href={`/search/${searchQuery}`}>
+                <h2 className="text-md font-bold cursor-pointer border-b-2 border-black inline-block" onClick={() => dispatch(toggleSearchMenu())} >View All</h2>
+                </Link>
               </div>
               )}
             <div className='m-4'><div className="flex justify-center items-center min-h-[50vh]">
@@ -612,9 +619,18 @@ const TestTwoHeader = () => {
               </div>
             </motion.div>
 
-            <Image src={isUserOpen ? xicon : usericon} alt="User Icon" width={24} height={6} 
-            className={`hover:cursor-pointer z-50 ${isCartOpen ? 'opacity-0' : '' } ${isSearchOpen ? 'opacity-0' : '' }`}
-            onClick={toggleUserMenu}/>
+            <Image 
+            src={isUserOpen ? xicon : usericon} 
+            alt="User Icon" 
+            width={24} 
+            height={6}
+            className={`hover:cursor-pointer z-50 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+            onClick={() => {
+              if (!isCartOpen && !isSearchOpen) {
+                toggleUserMenu();
+              }
+            }}
+          />
             <motion.div
           className="fixed inset-0 bg-black z-30 w-full"
           initial={{ opacity: 0}}
@@ -812,13 +828,18 @@ const TestTwoHeader = () => {
             )}
           </div>
               </motion.div>
-            <Image 
+              <Image 
                 src={isCartOpen ? xicon : carticon} // Change image based on isCartOpen state
                 alt={isCartOpen ? 'Close Cart' : 'Cart Icon'} 
-                width={24} height={6}
-                className={`hover:cursor-pointer z-50 ${isUserOpen ? 'opacity-0' : '' } ${isSearchOpen ? 'opacity-0' : '' }`}
-                onClick={() => dispatch(toggleCartMenu())}
-                />
+                width={24} 
+                height={6}
+                className={`hover:cursor-pointer z-50 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                onClick={() => {
+                  if (!isUserOpen && !isSearchOpen) {
+                    dispatch(toggleCartMenu());
+                  }
+                }}
+              />
                 <div className="absolute top-1 right-0 md:right-6 md:top-1 2xl:hidden xl:hidden lg:hidden bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
               {cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0}
             </div>

@@ -45,10 +45,10 @@ const customStyles = {
     }),
   };
 
-const CategoryProductsTest: React.FC = () => {
+const SearchPage: React.FC = () => {
     // Collect all categories and brands
     
-    const { category } = useParams();
+    const { query } = useParams();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [columns, setColumns] = useState(4); // Start with 4 columns
 
@@ -70,12 +70,6 @@ const CategoryProductsTest: React.FC = () => {
         dispatch(addToCart(cartItem));
         dispatch(toggleCartMenu());
       };
-
-    const formattedCategory = Array.isArray(category) 
-    ? decodeURIComponent(formatCategory(category[0] || '')) 
-    : decodeURIComponent(formatCategory(category || ''));
-        console.log(formattedCategory)
-
 
     const handleColumnChange = (newColumns: number) => {
         setColumns(newColumns);
@@ -123,37 +117,41 @@ const CategoryProductsTest: React.FC = () => {
         setSortOption(selectedOption.value);
       };
 
-    // Filter products based on selected categories and brands
     let filteredProducts = products.filter(product => {
-        // Check if the product matches the category
-        const matchesCategory = 
-            product.primary_category.toLowerCase() === formattedCategory.toLowerCase() || 
-            product.secondary_category.toLowerCase() === formattedCategory.toLowerCase();
+        // Match the product with the search query
+        const productName = Array.isArray(product.name) ? product.name.join(' ') : product.name;
+        const searchQuery = Array.isArray(query) ? query.join(' ') : query;
+
+        // Now you can safely use toLowerCase()
+        const matchesQuery = productName.toLowerCase().includes(searchQuery.toLowerCase());
     
         // Check if there are no selected brands or the product's brand is in the selected brands
         const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
     
-        // Only return products that match both category and brand conditions
-        return matchesCategory && matchesBrand;
-    });
+        // Only return products that match both query and brand conditions
+        return matchesQuery && matchesBrand;
+      });
     
-    const brands = products // Use the full product list, not the filtered one
-        .filter(product => 
-            product.primary_category.toLowerCase() === formattedCategory.toLowerCase() || 
-            product.secondary_category.toLowerCase() === formattedCategory.toLowerCase()
-        )
-        .map(product => product.brand);
+      // Extract brands from the filtered products
+      const brands = filteredProducts.map(product => product.brand);
     
-    const brandCount = countOccurrences(brands);
-
-     // Handle checkbox changes for brands
-     const handleBrandChange = (brand: string) => {
-        setSelectedBrands(prev => 
-            prev.includes(brand) 
-                ? prev.filter(b => b !== brand) 
-                : [...prev, brand]
+      // Count brand occurrences
+      const brandCount = countOccurrences(brands);
+    
+      // Handle checkbox changes for brands
+      const handleBrandChange = (brand: string) => {
+        setSelectedBrands(prev =>
+          prev.includes(brand)
+            ? prev.filter(b => b !== brand)
+            : [...prev, brand]
         );
-    };
+      };
+
+      const numberOfResults = filteredProducts.length;
+
+      // Capitalize the query for better display
+      const displayQuery = Array.isArray(query) ? query.join(' ') : query;
+      const capitalizedQuery = displayQuery.charAt(0).toUpperCase() + displayQuery.slice(1);
 
     // Sort products based on the selected sort option
     filteredProducts = filteredProducts.sort((a, b) => {
@@ -194,7 +192,9 @@ const CategoryProductsTest: React.FC = () => {
                         ))}
                     </ul>
                 </div>
-                <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-6 tracking-tighter 2xl:hidden xl:hidden'>{formattedCategory}</h2>
+                <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-6 tracking-tighter 2xl:hidden xl:hidden'>
+                        {numberOfResults} {numberOfResults === 1 ? 'Result' : 'Results'} for "{capitalizedQuery}"
+                        </h2>
                 {/* Products Display Section */}
                 <div className="2xl:w-[84%] xl:w-[140%] p-4 overflow-y-auto">
                     <div className='flex justify-between items-center 2xl:border-0 xl:border-0 lg:border-0 pb-4'>
@@ -278,7 +278,7 @@ const CategoryProductsTest: React.FC = () => {
                             />
                         </h2>
                     </div>
-                    <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-12 hidden 2xl:block xl:block'>{formattedCategory}</h2>
+                    <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-12 hidden 2xl:block xl:block'>{numberOfResults} {numberOfResults === 1 ? 'Result' : 'Results'} for "{capitalizedQuery}"</h2>
                     <div className='2xl:flex xl:flex justify-between items-center hidden mt-4'>
                         <div className='flex space-x-4'><span>View as: </span>
                             {/* 2 Column Layout */}
@@ -337,4 +337,4 @@ const CategoryProductsTest: React.FC = () => {
     );
 };
 
-export default CategoryProductsTest;
+export default SearchPage;
