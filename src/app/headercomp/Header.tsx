@@ -860,7 +860,7 @@ const TestTwoHeader = () => {
               transition={{ duration: 0.3 }}
             > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length})</h2>
             {cartItems.length > 0 ? (
-            <div className="flex flex-col flex-grow space-y-4 px-4">
+            <div className="flex flex-col flex-grow space-y-4">
               {/* Cart items */}
               <div className="flex-grow flex flex-col space-y-4 overflow-auto">
                 {cartItems.map((item) => (
