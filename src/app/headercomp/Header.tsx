@@ -877,7 +877,9 @@ const TestTwoHeader = () => {
                       {/* Product Details */}
                       <div>
                         <h3 className="font-semibold text-sm 2xl:text-md xl:text-md">{item.name}</h3>
-                        <p className="text-sm">Rs. {item.price}</p>
+                        <p className="text-sm">
+                          Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(item.price)}
+                        </p>
                         <div className="flex items-center">
                           <button
                             onClick={() => dispatch(decreaseQuantity(item.id))}
@@ -913,7 +915,11 @@ const TestTwoHeader = () => {
 
               {/* Checkout Details */}
               <div className="p-4 mt-auto border-t-2">
-                <h3 className="font-semibold">Order Summary: Rs. {cartItems.reduce((total, item) => total + item.price * item.quantity, 0)}</h3>
+                  <h3 className="font-semibold">
+                    Order Summary: Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(
+                      cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+                    )}
+                  </h3>
                 <button
                   className="bg-black text-white px-4 w-full py-2 mt-4 rounded border-black border hover:bg-[#3c3f74]"
                   onClick={() => { /* Checkout functionality */ }}
