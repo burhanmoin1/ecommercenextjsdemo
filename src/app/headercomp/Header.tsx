@@ -128,8 +128,8 @@ const TestTwoHeader = () => {
               src={Logo.src}
               alt="Remote Connect Logo"
               className="2xl:h-12 xl:h-12 lg:h-12 md:h-12 mt-3 ml-2"
-              width={260}
-              height={250}
+              width={200}
+              height={180}
             />
           </Link>
         </div>
@@ -549,14 +549,14 @@ const TestTwoHeader = () => {
           </motion.div>
           </div>
           </div>
-          <div className="absolute left-1/2 top-3 transform -translate-x-1/2">
+          <div className="absolute left-1/2 top-2 transform -translate-x-1/2">
             <Link href="/">
             <Image 
                 src={Logo.src}
                 alt="Remote Connect Logo" 
-                className="h-8 mr-44" 
-                width={170}
-                height={140}
+                className="h-10 mr-40" 
+                width={160}
+                height={120}
             />
             </Link>
         </div>
