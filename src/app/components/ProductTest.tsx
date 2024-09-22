@@ -259,7 +259,7 @@ const ProductTest: React.FC = () => {
                                     </li>
                                 ))}
                             </ul></motion.div>
-                            <div className='2xl:hidden xl:hidden md:flex md:mr-40 hidden '>
+                            <div className='2xl:hidden xl:hidden md:hidden hidden '>
                             <div className='flex space-x-4'><span>View as: </span>
                             {/* 2 Column Layout */}
                             <div onClick={() => handleColumnChange(2)} className='text-center cursor-pointer flex gap-1 bg-white'>

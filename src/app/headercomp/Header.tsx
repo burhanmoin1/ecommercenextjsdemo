@@ -154,7 +154,12 @@ const TestTwoHeader = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: isSearchOpen ? 0.5 : 0 }}
           transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+          style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} 
+          onClick={() => {
+            if (isSearchOpen) {
+                dispatch(toggleSearchMenu()); // Close cart when overlay is clicked
+            }
+        }}// Prevents interaction with the background when closed
         />
             <motion.div
              className="fixed top-0 right-0 w-full h-[70%] shadow-md bg-white hover:cursor-default text-black flex flex-col pt-8 overflow-auto z-40"
@@ -231,7 +236,12 @@ const TestTwoHeader = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: isUserOpen ? 0.5 : 0 }}
           transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+          style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} 
+          onClick={() => {
+            if (!isCartOpen && !isSearchOpen) {
+              toggleUserMenu();
+            }
+          }}// Prevents interaction with the background when closed
         />
             <motion.div
              className="fixed top-0 right-0 2xl:w-[26%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40 hover:cursor-default"
@@ -436,7 +446,7 @@ const TestTwoHeader = () => {
                 />
                  {/* Cart count circle */}
                     <div className="relative 2xl:absolute 2xl:top-[1.2rem] 2xl:right-[5.8rem] xl:-top-2 xl:right-[2.5rem] lg:right-[2.5rem] lg:-top-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                    {cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0}
+                    {cartItems.length}
                     </div>
                 <motion.div
           className="fixed inset-0 bg-black z-30 translate-x-[-50px] w-full"
@@ -485,7 +495,13 @@ const TestTwoHeader = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: isOpen ? 0.5 : 0 }}
           transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+          style={{ pointerEvents: isOpen ? 'auto' : 'none' }} 
+          onClick={() => {
+            if (isOpen) {
+              setIsOpen(false) // Close cart when overlay is clicked
+            }
+        }}
+          // Prevents interaction with the background when closed
         />
           {/* Menu Drawer for Mobile */}
           <div className={`fixed top-0 left-0 w-full h-full z-30 ${isOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
@@ -568,7 +584,8 @@ const TestTwoHeader = () => {
             className="fixed inset-0 bg-black z-30 w-full"
             animate={{ opacity: isSearchOpen ? 0.5 : 0, x: isSearchOpen ? '-4%' : ''  }}
             transition={{ duration: 0.3 }}
-            style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+            style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} 
+            // Prevents interaction with the background when closed
           />
             <motion.div
              className="fixed top-0 right-0 w-full h-full shadow-md bg-white hover:cursor-default text-black flex flex-col pt-8 overflow-auto z-40"
@@ -636,7 +653,12 @@ const TestTwoHeader = () => {
           initial={{ opacity: 0}}
           animate={{ opacity: isUserOpen ? 0.5 : 0, x: isUserOpen ? '-10%' : '-10%' }}
           transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+          style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} 
+          onClick={() => {
+            if (isUserOpen) {
+                toggleUserMenu(); // Close cart when overlay is clicked
+            }
+        }}// Prevents interaction with the background when closed
         />
           
             <motion.div
@@ -841,7 +863,7 @@ const TestTwoHeader = () => {
                 }}
               />
                 <div className="absolute top-1 right-0 md:right-6 md:top-1 2xl:hidden xl:hidden lg:hidden bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-              {cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0}
+                {cartItems.length}
             </div>
         </div>
         <motion.div
@@ -849,7 +871,12 @@ const TestTwoHeader = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: isCartOpen ? 0.5 : 0 }}
           transition={{ duration: 0.3 }}
-          style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+          style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }}
+          onClick={() => {
+            if (isCartOpen) {
+                dispatch(toggleCartMenu()); // Close cart when overlay is clicked
+            }
+        }} // Prevents interaction with the background when closed
         />
           {/* Menu Drawer for Cart */}
             {/* This div will close the sidebar when clicked */}
