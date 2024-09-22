@@ -200,7 +200,7 @@ const SearchPage: React.FC = () => {
                     </ul>
                 </div>
                 <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-6 tracking-tighter 2xl:hidden xl:hidden'>
-                        {numberOfResults} {numberOfResults === 1 ? 'Result' : 'Results'} for "{capitalizedQuery}"
+                        {numberOfResults} {numberOfResults === 1 ? 'Result' : 'Results'} for &quot;{capitalizedQuery}&quot;
                         </h2>
                 {/* Products Display Section */}
                 <div className="2xl:w-[84%] xl:w-[140%] p-4 overflow-y-auto">
@@ -285,7 +285,7 @@ const SearchPage: React.FC = () => {
                             />
                         </h2>
                     </div>
-                    <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-12 hidden 2xl:block xl:block'>{numberOfResults} {numberOfResults === 1 ? 'Result' : 'Results'} for "{capitalizedQuery}"</h2>
+                    <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-12 hidden 2xl:block xl:block'>{numberOfResults} {numberOfResults === 1 ? 'Result' : 'Results'} for &quot;{capitalizedQuery}&quot;</h2>
                     <div className='2xl:flex xl:flex justify-between items-center hidden mt-4'>
                         <div className='flex space-x-4'><span>View as: </span>
                             {/* 2 Column Layout */}
