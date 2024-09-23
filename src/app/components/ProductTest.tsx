@@ -4,14 +4,13 @@ import products from '../utils/common';
 import { Product } from '../utils/common';
 import filtericon from '@/app/assets/icons/filtericon.png';
 import xicon from '@/app/assets/icons/xicon.png';
-import Image, { StaticImageData } from 'next/image';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { addToCart, toggleCartMenu } from '../redux/slices/cartSlice'; 
 import Link from 'next/link';
 
-// Function to count occurrences
 const countOccurrences = (arr: string[]) => {
     return arr.reduce((acc: Record<string, number>, item) => {
         acc[item] = (acc[item] || 0) + 1;
@@ -45,11 +44,10 @@ const customStyles = {
   };
 
 const ProductTest: React.FC = () => {
-    // Collect all categories and brands
     const secondaryCategories = products.map(product => product.secondary_category);
     const brands = products.map(product => product.brand);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [columns, setColumns] = useState(4); // Start with 4 columns
+    const [columns, setColumns] = useState(4);
 
     const dispatch = useDispatch();
 
@@ -70,7 +68,7 @@ const ProductTest: React.FC = () => {
         setColumns(newColumns);
     };
 
-    const [mobilecolumns, setMobileColumns] = useState(1); // Start with 4 columns
+    const [mobilecolumns, setMobileColumns] = useState(1);
 
     const handlemobileColumnChange = (newmobileColumns: number) => {
         setMobileColumns(newmobileColumns);
@@ -145,9 +143,9 @@ const ProductTest: React.FC = () => {
         } else if (sortOption === 'desc') {
             return b.name.localeCompare(a.name);
         } else if (sortOption === 'price') {
-            return b.selling_price - a.selling_price; // High to low
+            return b.selling_price - a.selling_price;
         } else if (sortOption === '-price') {
-            return a.selling_price - b.selling_price; // Low to high
+            return a.selling_price - b.selling_price;
         }
         return 0;
     });
@@ -288,7 +286,7 @@ const ProductTest: React.FC = () => {
                             options={sortOptions}
                             value={sortOptions.find(option => option.value === sortOption)}
                             onChange={handleSortChange}
-                            isSearchable={false} // Disable search box if not needed
+                            isSearchable={false}
                             className="w-52"
                             />
                         </h2>
@@ -318,13 +316,13 @@ const ProductTest: React.FC = () => {
 
                     <h2 className="hidden 2xl:block xl:block lg:hidden text-end">
                         <div className="flex items-center justify-end">
-                            <span className="mr-2">Sort by:</span> {/* Add margin to space between text and select */}
+                            <span className="mr-2">Sort by:</span>
                             <Select
                                 styles={customStyles}
                                 options={sortOptions}
                                 value={sortOptions.find(option => option.value === sortOption)}
                                 onChange={handleSortChange}
-                                isSearchable={false} // Disable search box if not needed
+                                isSearchable={false}
                                 className="w-55"
                             />
                         </div>
@@ -347,7 +345,6 @@ const ProductTest: React.FC = () => {
                                     <p className='text-center mt-2'>Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
                                 </Link>
                                 
-                                {/* Ensure the button is always at the end of the flex container */}
                                 <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-4 hover:bg-[#3c3f74] hover:text-white' 
                                         onClick={() => handleAddToCart(product)}>
                                     Add to cart

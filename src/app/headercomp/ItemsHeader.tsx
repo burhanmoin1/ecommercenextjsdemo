@@ -33,7 +33,6 @@ const ItemsHeader = () => {
 
     window.addEventListener('scroll', handleScroll);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -58,15 +57,12 @@ const ItemsHeader = () => {
                             {item}
                         </p>
                     </Link>
-                    {/* Underline */}
                     <div
                         className={`absolute bottom-0 left-5 w-[80%] h-1 bg-black transition-transform duration-300 ${hoveredItem === item ? 'scale-x-100' : 'scale-x-0'} origin-left`}
                     ></div>
                 </div>
             ))}
-            {/* Dropdown container */}
             <div className="absolute top-full w-[90%] mt-1 z-100">
-                {/* Services dropdown */}
                 {hoveredItem === 'Food Cupboard' && (
                     <div
                         className="bg-white shadow-lg rounded-lg h-40 overflow-hidden z-100"
@@ -84,7 +80,6 @@ const ItemsHeader = () => {
                         </div>
                     </div>
                 )}
-                {/* Products dropdown */}
                 {hoveredItem === 'Health & Beauty' && (
                     <div
                         className="bg-white shadow-lg rounded-lg h-40 overflow-hidden z-100"
@@ -100,7 +95,7 @@ const ItemsHeader = () => {
                 )}
             </div>
         </div>
-        </header>
+    </header>
     );
 };
 

@@ -8,7 +8,7 @@ import trashicon from '@/app/assets/icons/trashicon.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { toggleCartMenu, removeFromCart, addToCart, decreaseQuantity, incrementQuantity  } from '../redux/slices/cartSlice';
-import searchIcon from '@/app/assets/icons/searchblack.png'; // Update path as needed
+import searchIcon from '@/app/assets/icons/searchblack.png';
 import usericon from '@/app/assets/icons/usericon.png';
 import carticon from '@/app/assets/icons/carticon.png';
 import xicon from '@/app/assets/icons/xicon.png';
@@ -29,27 +29,29 @@ const TestTwoHeader = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const mobilesearchInputRef = useRef<HTMLInputElement>(null);
   const isCartOpen = useSelector((state: RootState) => state.cart.isCartOpen);
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const isSearchOpen = useSelector((state: RootState) => state.search.isSearchOpen);
-
   const dispatch = useDispatch();
 
-    
-
-  // Focus the search input when the search menu is toggled open
   useEffect(() => {
     if (isSearchOpen && searchInputRef.current) {
       searchInputRef.current.focus();
     }
   }, [isSearchOpen]);
 
+  useEffect(() => {
+    if (isSearchOpen && mobilesearchInputRef.current) {
+      mobilesearchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
+
   // Filter products based on the search query
-  const filteredProducts = products.filter((product) =>
+  const searchedProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
  
-
   const handleArrowToggle = (section: string) => {
     // If the section clicked is already open, close it. Otherwise, open the clicked section and close the others.
     setActiveSection(prev => (prev === section ? null : section));
@@ -57,7 +59,7 @@ const TestTwoHeader = () => {
 
   useEffect(() => {
     if (isOpen || isUserOpen || isSearchOpen || isCartOpen) {
-      // Disable scrolling on the main page when the menu is open
+      // Disable scrolling on the main page when any of four menu are open
       document.body.style.overflow = 'hidden';
     } else {
       // Re-enable scrolling on the main page when the menu is closed
@@ -131,7 +133,6 @@ const TestTwoHeader = () => {
 
     window.addEventListener('scroll', handleScroll);
 
-    // Cleanup event listener on component unmount
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -160,10 +161,8 @@ const TestTwoHeader = () => {
             />
           </Link>
         </div>
-        {/* Nav items */}
         
       </div>
-       {/* Right side: Sign up and Log in Buttons */}
        <div className="hidden 2xl:flex xl:flex lg:flex items-center space-x-8 ml-auto mr-24">
         <div className="flex items-center hover:cursor-pointer">
 
@@ -184,21 +183,19 @@ const TestTwoHeader = () => {
           style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} 
           onClick={() => {
             if (isSearchOpen) {
-                dispatch(toggleSearchMenu()); // Close cart when overlay is clicked
+                dispatch(toggleSearchMenu());
             }
-        }}// Prevents interaction with the background when closed
+        }}
         />
             <motion.div
              className="fixed top-0 right-0 w-full h-[70%] shadow-md bg-white hover:cursor-default text-black flex flex-col pt-8 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isSearchOpen ? 1 : 0, x: isSearchOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the outer div
+              onClick={(e) => e.stopPropagation()}
             >
             <div className='flex flex-col justify-center space-y-2'>
-              {/* Search and Cancel Row */}
               <div className='flex justify-center space-x-4'>
-                {/* Search Input */}
                 <div className="relative flex items-center w-full  max-w-5xl 2xl:mr-8 xl:mr-4 lg:mr-4">
                   <input
                     type="text"
@@ -210,16 +207,14 @@ const TestTwoHeader = () => {
                   />
                   <Image src={searchIcon.src} alt="Search Icon" width={16} height={16} className="absolute left-2 lg:left-3" />
                 </div>
-                {/* Cancel Button */}
                 <div className='flex items-center space-x-2 hover:cursor-pointer' onClick={() => dispatch(toggleSearchMenu())} >
                  
                   <Image src={xicon} alt='X icon' width={24} height={24} />
                 </div>
               </div>
-              {searchQuery !== '' && filteredProducts.length > 0 && (
+              {searchQuery !== '' && searchedProducts.length > 0 && (
                 <div className="flex justify-between w-full max-w-5xl px-4 ml-96 pt-4">
                   <h2 className="text-lg">Products:</h2>
-                  {/* Search Button */}
                   <Link href={`/search/${searchQuery}`}>
                       <h2 className="text-lg font-bold cursor-pointer border-b-2 border-black inline-block" onClick={() => dispatch(toggleSearchMenu())}>
                         View All
@@ -227,13 +222,12 @@ const TestTwoHeader = () => {
                     </Link>
                 </div>
               )}
-              {/* Product display */}
               <div className="flex justify-center items-center min-h-[20vh]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                   {searchQuery === '' ? (
                     <p className="text-center w-full col-span-4">Start typing to search for products...</p>
-                  ) : filteredProducts.length > 0 ? (
-                    filteredProducts.map((product) => (
+                  ) : searchedProducts.length > 0 ? (
+                    searchedProducts.map((product) => (
                       <div key={product.sku} className="bg-white p-4 rounded text-center hover:cursor-pointer" >
                          <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`} onClick={() => dispatch(toggleSearchMenu())}>
                         <Image src={product.image} alt={product.name} width={200} height={150} className="mx-auto mb-2" />
@@ -270,17 +264,16 @@ const TestTwoHeader = () => {
             if (!isCartOpen && !isSearchOpen) {
               toggleUserMenu();
             }
-          }}// Prevents interaction with the background when closed
+          }}
         />
             <motion.div
              className="fixed top-0 right-0 2xl:w-[26%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40 hover:cursor-default"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isUserOpen ? 1 : 0, x: isUserOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the outer div
+              onClick={(e) => e.stopPropagation()}
             >
               <div>
-              {/* Login Details */}
               {!isRegister ? (
                 <div className='p-4'>
                   <h2 className='font-bold text-xl'>LOG IN TO ACCESS EVERYTHING</h2>
@@ -299,8 +292,6 @@ const TestTwoHeader = () => {
                       />
                     </div>
                   </div>
-
-                  {/* Password field */}
                   <div className="mb-4">
                     <div className='flex justify-between hover:cursor-default'>
                       <label htmlFor="password" className="block font-medium mb-2">Password</label>
@@ -317,8 +308,6 @@ const TestTwoHeader = () => {
                       />
                     </div>
                   </div>
-
-                  {/* Login Button */}
                   <button className="w-full mt-4 bg-black text-white font-bold py-2.5 border-black border hover:bg-[#3c3f74]">
                     LOGIN
                   </button>
@@ -328,7 +317,6 @@ const TestTwoHeader = () => {
                   </h2>
                 </div>
               ) : (
-                // Register Details
                 <div className='p-4'>
                   <h2 className='font-bold text-xl'>REGISTER FOR AN ACCOUNT</h2>
                   <div className="mb-4 mt-10">
@@ -341,8 +329,6 @@ const TestTwoHeader = () => {
                         className="w-full px-4 py-4 border border-gray-400 focus:outline-none"
                       />
                     </div>
-
-                    {/* Last Name */}
                     <div className="mb-4">
                       <label htmlFor="lastName" className="block font-medium text-gray-700 mb-2">Last Name</label>
                       <input
@@ -436,8 +422,6 @@ const TestTwoHeader = () => {
                         </div>
                       </div>
           
-
-                    {/* Confirm Password */}
                     <div className="mb-4">
                       <label htmlFor="confirmPassword" className="block font-medium mb-2">Confirm Password</label>
                       <div className="flex items-center border border-gray-400">
@@ -466,27 +450,24 @@ const TestTwoHeader = () => {
             </div>
           
             <Image 
-                src={isCartOpen ? xicon : carticon} // Change image based on isCartOpen state
+                src={isCartOpen ? xicon : carticon}
                 alt={isCartOpen ? 'Close Cart' : 'Cart Icon'} 
                 width={22} 
                 height={10} 
                 className={`hover:cursor-pointer z-50 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
                 onClick={() => dispatch(toggleCartMenu())}
                 />
-                 {/* Cart count circle */}
-                    <div className="relative 2xl:absolute 2xl:top-[1.2rem] 2xl:right-[5.8rem] xl:-top-2 xl:right-[2.5rem] lg:right-[2.5rem] lg:-top-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                    {cartItems.length}
-                    </div>
-                <motion.div
+                <div className="relative 2xl:absolute 2xl:top-[1.2rem] 2xl:right-[5.8rem] xl:-top-2 xl:right-[2.5rem] lg:right-[2.5rem] lg:-top-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                {cartItems.length}
+                </div>
+              <motion.div
               className="fixed inset-0 bg-black z-30 translate-x-[-50px] w-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: isCartOpen ? 0.5 : 0 }}
               transition={{ duration: 0.3 }}
-              style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }} // Prevents interaction with the background when closed
+              style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }}
             />
-              {/* Menu Drawer for Cart */}
               <div className={`fixed top-0 left-0 w-full h-full z-30 ${isCartOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
-                {/* This div will close the sidebar when clicked */}
                 </div>
                 </div>
             
@@ -501,21 +482,21 @@ const TestTwoHeader = () => {
                 >
                   <motion.div
                     className="w-6 h-0.5 bg-black"
-                    animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }} // Adjust y values as needed
+                    animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
                     transition={{ duration: 0.3 }}
-                    style={{ zIndex: 50 }} // Ensure the line appears on top
+                    style={{ zIndex: 50 }}
                   />
                   <motion.div
                     className="w-6 h-0.5 bg-black"
                     animate={{ opacity: isOpen ? 0 : 1 }}
                     transition={{ duration: 0.3 }}
-                    style={{ zIndex: 50 }} // Ensure the line appears on top
+                    style={{ zIndex: 50 }}
                   />
                   <motion.div
                     className="w-6 h-0.5 bg-black"
-                    animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -10 : 0 }} // Adjust y values as needed
+                    animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -10 : 0 }}
                     transition={{ duration: 0.3 }}
-                    style={{ zIndex: 50 }} // Ensure the line appears on top
+                    style={{ zIndex: 50 }}
                   />
                 </button>
           
@@ -527,26 +508,20 @@ const TestTwoHeader = () => {
               style={{ pointerEvents: isOpen ? 'auto' : 'none' }} 
               onClick={() => {
                 if (isOpen) {
-                  setIsOpen(false) // Close cart when overlay is clicked
+                  setIsOpen(false)
                 }
             }}
-              // Prevents interaction with the background when closed
             />
-          {/* Menu Drawer for Mobile */}
           <div className={`fixed top-0 left-0 w-full h-full z-30 ${isOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
-            {/* This div will close the sidebar when clicked */}
             <motion.div
              className="fixed top-0 left-0 h-full w-[64%] md:w-[40%] shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
              initial={{ opacity: 0, x: '-100%' }}
              animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : '-100%' }}
               transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the outer div
+              onClick={(e) => e.stopPropagation()}
             >
-            {/* Items */}
             <div className="flex flex-col items-start pl-6 w-full space-y-8 ">
               <Link href="/" className="text-xl py-2" onClick={() => setIsOpen(false)}>Home</Link>   
-              
-                {/* Services Accordion */}
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('services')}>
                     <Link href="#" className="text-xl py-2">Food Cupboard</Link>
@@ -568,8 +543,6 @@ const TestTwoHeader = () => {
                     </div>
                   </motion.div>
                 </div>
-
-                {/* Products Accordion */}
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('products')}>
                     <Link href="#" className="text-xl py-2">Health & Beauty</Link>
@@ -614,21 +587,20 @@ const TestTwoHeader = () => {
             animate={{ opacity: isSearchOpen ? 0.5 : 0, x: isSearchOpen ? '-4%' : ''  }}
             transition={{ duration: 0.3 }}
             style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} 
-            // Prevents interaction with the background when closed
           />
             <motion.div
              className="fixed top-0 right-0 w-full h-full shadow-md bg-white hover:cursor-default text-black flex flex-col pt-8 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isSearchOpen ? 1 : 0, x: isSearchOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()} // Prevents the click from propagating to the outer div
+              onClick={(e) => e.stopPropagation()}
             >
             <div className="relative flex items-center border-b-2 pb-4 w-full max-w-5xl space-x-2 2xl:mr-8 xl:mr-4 lg:mr-4">
               <input
                 type="text"
                 placeholder="Search"
                 value={searchQuery}
-                ref={searchInputRef}
+                ref={mobilesearchInputRef}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-[80%] border-[#4b4848] ml-4 pl-8 border rounded-full bg-[#f5f5f5] px-2 py-2 2xl:pl-10 md:pl-10 text-base focus:outline-none"
               />
@@ -636,7 +608,7 @@ const TestTwoHeader = () => {
              
             <Image src={xicon} alt='X icon' width={24} height={24} onClick={() => dispatch(toggleSearchMenu())}  />
             </div>
-            {searchQuery !== '' && filteredProducts.length > 0 && (
+            {searchQuery !== '' && searchedProducts.length > 0 && (
             <div className="flex justify-between w-full max-w-5xl px-4 pt-6">
                 <h2 className="text-md">Products:</h2>
                 <Link href={`/search/${searchQuery}`}>
@@ -648,8 +620,8 @@ const TestTwoHeader = () => {
                 <div className="grid grid-cols-1">
                   {searchQuery === '' ? (
                     <p className="text-center w-full col-span-4">Start typing to search for products...</p>
-                  ) : filteredProducts.length > 0 ? (
-                    filteredProducts.map((product) => (
+                  ) : searchedProducts.length > 0 ? (
+                    searchedProducts.map((product) => (
                       <div key={product.sku} className="bg-white p-4 rounded text-center hover:cursor-pointer">
                         <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`} onClick={() => dispatch(toggleSearchMenu())}>
                         <Image src={product.image} alt={product.name} width={200} height={150} className="mx-auto mb-2" />
@@ -687,9 +659,9 @@ const TestTwoHeader = () => {
           style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} 
           onClick={() => {
             if (isUserOpen) {
-                toggleUserMenu(); // Close cart when overlay is clicked
+                toggleUserMenu();
             }
-        }}// Prevents interaction with the background when closed
+        }}
         />
           
             <motion.div
@@ -698,7 +670,6 @@ const TestTwoHeader = () => {
              animate={{ opacity: isUserOpen ? 1 : 0, x: isUserOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
             >  <div>
-            {/* Login Details */}
             {!isRegister ? (
               <div className='p-4'>
                 <h2 className='font-bold text-xl'>LOG IN TO ACCESS EVERYTHING</h2>
@@ -717,8 +688,6 @@ const TestTwoHeader = () => {
                     />
                   </div>
                 </div>
-
-                {/* Password field */}
                 <div className="mb-4">
                   <div className='flex justify-between hover:cursor-default'>
                     <label htmlFor="password" className="block font-medium mb-2">Password</label>
@@ -735,8 +704,6 @@ const TestTwoHeader = () => {
                     />
                   </div>
                 </div>
-
-                {/* Login Button */}
                 <button className="w-full mt-4 bg-black text-white font-bold py-2.5 border-black border hover:bg-[#3c3f74]">
                   LOGIN
                 </button>
@@ -746,7 +713,6 @@ const TestTwoHeader = () => {
                 </h2>
               </div>
             ) : (
-              // Register Details
               <div className='p-4'>
                 <h2 className='font-bold text-xl'>REGISTER FOR AN ACCOUNT</h2>
                 <div className="mb-4 mt-10">
@@ -760,7 +726,6 @@ const TestTwoHeader = () => {
                     />
                   </div>
 
-                  {/* Last Name */}
                   <div className="mb-4">
                     <label htmlFor="lastName" className="block font-medium text-gray-700 mb-2">Last Name</label>
                     <input
@@ -854,8 +819,6 @@ const TestTwoHeader = () => {
                       </div>
                     </div>
         
-
-                  {/* Confirm Password */}
                   <div className="mb-4">
                     <label htmlFor="confirmPassword" className="block font-medium mb-2">Confirm Password</label>
                     <div className="flex items-center border border-gray-400">
@@ -882,7 +845,7 @@ const TestTwoHeader = () => {
           </div>
               </motion.div>
               <Image 
-                src={isCartOpen ? xicon : carticon} // Change image based on isCartOpen state
+                src={isCartOpen ? xicon : carticon}
                 alt={isCartOpen ? 'Close Cart' : 'Cart Icon'} 
                 width={24} 
                 height={6}
@@ -905,94 +868,85 @@ const TestTwoHeader = () => {
           style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }}
           onClick={() => {
             if (isCartOpen) {
-                dispatch(toggleCartMenu()); // Close cart when overlay is clicked
+                dispatch(toggleCartMenu());
             }
-        }} // Prevents interaction with the background when closed
-        />
-          {/* Menu Drawer for Cart */}
-            {/* This div will close the sidebar when clicked */}
-            <motion.div
-             className="fixed top-0 right-0 w-[80%] 2xl:w-[20%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-6 overflow-auto z-40"
-             initial={{ opacity: 0, x: '100%' }}
-             animate={{ opacity: isCartOpen ? 1 : 0, x: isCartOpen ? 0 : '100%' }}
-              transition={{ duration: 0.3 }}
-            > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0})</h2>
-            {cartItems.length > 0 ? (
-            <div className="flex flex-col flex-grow space-y-4">
-              {/* Cart items */}
-              <div className="flex-grow flex flex-col space-y-4 overflow-auto">
-                {cartItems.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 border-b">
-                    <div className="flex items-center space-x-4">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        width={80}
-                        height={80}
-                        className="object-cover w-20 h-20"
-                      />
+        }}
+      />
+          <motion.div
+            className="fixed top-0 right-0 w-[80%] 2xl:w-[20%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-6 overflow-auto z-40"
+            initial={{ opacity: 0, x: '100%' }}
+            animate={{ opacity: isCartOpen ? 1 : 0, x: isCartOpen ? 0 : '100%' }}
+            transition={{ duration: 0.3 }}
+          > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0})</h2>
+          {cartItems.length > 0 ? (
+          <div className="flex flex-col flex-grow space-y-4">
 
-                      {/* Product Details */}
-                      <div>
-                        <h3 className="font-semibold text-sm">{item.name}</h3>
-                        <p className='text-sm'>
-                          Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(item.price)}
-                        </p>
-                        <div className="flex items-center space-x-6">
-                          <button
-                            onClick={() => dispatch(decreaseQuantity(item.id))}
-                            className="rounded-full border-gray-100 border-2 bg-gray-100"
-                          >
-                            {item.quantity > 1 ? (
-                              <Image src={minusicon} alt="Decrease quantity" width={20} height={20} />
-                            ) : (
-                              <Image src={trashicon} alt="Remove" width={20} height={20} />
-                            )}
-                          </button>
-                          <span className="m-2">{item.quantity}</span>
-                          <button
-                            onClick={() => dispatch(incrementQuantity(item.id))}
-                            className="rounded-full border-gray-100 border-2 bg-gray-100"
-                          >
-                            <Image src={plusicon} alt="Increase quantity" width={20} height={20} />
-                          </button>
-                        </div>
+            <div className="flex-grow flex flex-col space-y-4 overflow-auto">
+              {cartItems.map((item) => (
+                <div key={item.id} className="flex items-center justify-between p-4 border-b">
+                  <div className="flex items-center space-x-4">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      width={80}
+                      height={80}
+                      className="object-cover w-20 h-20"
+                    />
+                    <div>
+                      <h3 className="font-semibold text-sm">{item.name}</h3>
+                      <p className='text-sm'>
+                        Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(item.price)}
+                      </p>
+                      <div className="flex items-center space-x-6">
+                        <button
+                          onClick={() => dispatch(decreaseQuantity(item.id))}
+                          className="rounded-full border-gray-100 border-2 bg-gray-100"
+                        >
+                          {item.quantity > 1 ? (
+                            <Image src={minusicon} alt="Decrease quantity" width={20} height={20} />
+                          ) : (
+                            <Image src={trashicon} alt="Remove" width={20} height={20} />
+                          )}
+                        </button>
+                        <span className="m-2">{item.quantity}</span>
+                        <button
+                          onClick={() => dispatch(incrementQuantity(item.id))}
+                          className="rounded-full border-gray-100 border-2 bg-gray-100"
+                        >
+                          <Image src={plusicon} alt="Increase quantity" width={20} height={20} />
+                        </button>
                       </div>
                     </div>
-
-                    {/* Remove Button */}
-                    <button
-                      onClick={() => dispatch(removeFromCart(item.id))}
-                      className="text-red-500 hover:underline"
-                    >
-                      Remove
-                    </button>
                   </div>
-                ))}
-              </div>
-
-              {/* Checkout Details */}
-              <div className="p-4 mt-auto border-t-2">
-                  <h3 className="font-semibold">
-                    Order Summary: Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(
-                      cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-                    )}
-                  </h3>
-                <button
-                  className="bg-black text-white px-4 w-full py-2 mt-4 rounded border-black border hover:bg-[#3c3f74]"
-                  onClick={() => { /* Checkout functionality */ }}
-                >
-                  Checkout
-                </button>
-              </div>
+                  <button
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className="text-red-500 hover:underline"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
             </div>
-            ) : (
-              <p className='pt-16 text-center'>Your cart is empty.</p>
-            )}
-            </motion.div>
-            
-        
-    </header>
+
+            {/* Checkout Details */}
+            <div className="p-4 mt-auto border-t-2">
+                <h3 className="font-semibold">
+                  Order Summary: Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(
+                    cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+                  )}
+                </h3>
+              <button
+                className="bg-black text-white px-4 w-full py-2 mt-4 rounded border-black border hover:bg-[#3c3f74]"
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+          ) : (
+            <p className='pt-16 text-center'>Your cart is empty.</p>
+          )}
+          </motion.div>
+      </header>
     </div>
   );
 };

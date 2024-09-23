@@ -12,8 +12,6 @@ import { useDispatch } from 'react-redux';
 import { addToCart, toggleCartMenu } from '../redux/slices/cartSlice';
 import Link from 'next/link';
 
-
-// Function to count occurrences
 const countOccurrences = (arr: string[]) => {
     return arr.reduce((acc: Record<string, number>, item) => {
         acc[item] = (acc[item] || 0) + 1;
@@ -47,14 +45,12 @@ const customStyles = {
   };
 
 const SearchPage: React.FC = () => {
-    // Collect all categories and brands
-    
     const { query } = useParams();
     const [isFilterOpen, setIsFilterOpen] = useState(false);
-    const [columns, setColumns] = useState(4); // Start with 4 columns
+    const [columns, setColumns] = useState(4);
 
     const formatCategory = (categoryParam: string) => {
-        return categoryParam.replace(/-/g, ' '); // Replaces all dashes with spaces
+        return categoryParam.replace(/-/g, ' ');
     };
 
     const dispatch = useDispatch();
@@ -76,7 +72,7 @@ const SearchPage: React.FC = () => {
         setColumns(newColumns);
     };
 
-    const [mobilecolumns, setMobileColumns] = useState(1); // Start with 4 columns
+    const [mobilecolumns, setMobileColumns] = useState(1);
 
     const handlemobileColumnChange = (newmobileColumns: number) => {
         setMobileColumns(newmobileColumns);
@@ -86,14 +82,11 @@ const SearchPage: React.FC = () => {
 
     useEffect(() => {
         if (isFilterOpen) {
-          // Disable scrolling on the main page when the menu is open
           document.body.style.overflow = 'hidden';
         } else {
-          // Re-enable scrolling on the main page when the menu is closed
           document.body.style.overflow = '';
         }
-    
-        // Cleanup on component unmount or when the drawer is closed
+
         return () => {
           document.body.style.overflow = '';
         };
@@ -110,28 +103,16 @@ const SearchPage: React.FC = () => {
       ];
 
     const toggleFilterMenu = () => setIsFilterOpen(!isFilterOpen);
-    // Handle checkbox changes for categories
-    
-   
-    // Handle sorting option change
     const handleSortChange = (selectedOption: any) => {
         setSortOption(selectedOption.value);
       };
 
       const searchQuery = Array.isArray(query) ? query.join(' ') : query;
-    
-      // Match using toLowerCase
-      
 
       let filteredProducts = products.filter(product => {
-        // Match the product with the search query
         const productName = Array.isArray(product.name) ? product.name.join(' ') : product.name;
         const matchesQuery = productName.toLowerCase().includes(searchQuery.toLowerCase());
-    
-        // Check if there are no selected brands or the product's brand is in the selected brands
         const matchesBrand = selectedBrands.length === 0 || selectedBrands.includes(product.brand);
-    
-        // Only return products that match both query and brand conditions
         return matchesQuery && matchesBrand;
     });
     
@@ -168,9 +149,9 @@ const SearchPage: React.FC = () => {
         } else if (sortOption === 'desc') {
             return b.name.localeCompare(a.name);
         } else if (sortOption === 'price') {
-            return b.selling_price - a.selling_price; // High to low
+            return b.selling_price - a.selling_price;
         } else if (sortOption === '-price') {
-            return a.selling_price - b.selling_price; // Low to high
+            return a.selling_price - b.selling_price;
         }
         return 0;
     });
@@ -281,7 +262,7 @@ const SearchPage: React.FC = () => {
                             options={sortOptions}
                             value={sortOptions.find(option => option.value === sortOption)}
                             onChange={handleSortChange}
-                            isSearchable={false} // Disable search box if not needed
+                            isSearchable={false}
                             className="w-52"
                             />
                         </h2>
@@ -311,13 +292,13 @@ const SearchPage: React.FC = () => {
 
                     <h2 className="hidden 2xl:block xl:block lg:hidden text-end">
                         <div className="flex items-center justify-end">
-                            <span className="mr-2">Sort by:</span> {/* Add margin to space between text and select */}
+                            <span className="mr-2">Sort by:</span>
                             <Select
                                 styles={customStyles}
                                 options={sortOptions}
                                 value={sortOptions.find(option => option.value === sortOption)}
                                 onChange={handleSortChange}
-                                isSearchable={false} // Disable search box if not needed
+                                isSearchable={false}
                                 className="w-55"
                             />
                         </div>
@@ -340,7 +321,6 @@ const SearchPage: React.FC = () => {
                                         <p className='text-center mt-2'>Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
                                     </Link>
                                     
-                                    {/* Ensure the button is always at the end of the flex container */}
                                     <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-4 hover:bg-[#3c3f74] hover:text-white' 
                                             onClick={() => handleAddToCart(product)}>
                                         Add to cart

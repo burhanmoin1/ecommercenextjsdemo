@@ -23,16 +23,14 @@ const ProductForm: React.FC = () => {
   const [images, setImages] = useState<File[]>([]); 
   const [discount, setDiscount] = useState('');
 
-  // State for Primary Categories dropdown
   const [primaryCategories, setPrimaryCategories] = useState<{ id: string, name: string }[]>([]);
   
-  // State for Secondary Categories dropdown
   const [secondaryCategories, setSecondaryCategories] = useState<{ id: string, name: string }[]>([]);
 
   const calculateProfit = () => {
-    const selling = parseFloat(calculateDiscountedPrice()) || 0; // Use discounted price
+    const selling = parseFloat(calculateDiscountedPrice()) || 0;
     const cost = parseFloat(costPrice) || 0;
-    return (selling - cost).toFixed(2); // Format to 2 decimal places
+    return (selling - cost).toFixed(2);
   };
 
   const calculateDiscountedPrice = () => {

@@ -14,8 +14,8 @@ import Link from 'next/link';
 const ProductPage: React.FC = () => {
     const { name } = useParams();
     const dispatch = useDispatch();
-    const [quantity, setQuantity] = useState(1); // State for quantity control
-    const [subtotal, setSubtotal] = useState(0); // State for subtotal
+    const [quantity, setQuantity] = useState(1);
+    const [subtotal, setSubtotal] = useState(0);
 
     const formatName = (nameParam: string) => {
         return decodeURIComponent(nameParam).replace(/-/g, ' ').replace('--', '+');
