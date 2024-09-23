@@ -118,8 +118,35 @@ const TestTwoHeader = () => {
     validatePassword(newPassword);
   };
 
+  const [scrollTop, setScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrollTop(true);
+      } else {
+        setScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="fixed w-full 2xl:p-2 xl:p-2 bg-white border-gray-100 shadow-sm border-b flex items-center top-0 z-50" >
+    <div>
+       <div className="bg-black text-white text-center">
+          <h2>Free delivery on orders over Rs. 5,000</h2>
+        </div>
+        <header
+        className={`fixed w-full 2xl:p-2 xl:p-2 bg-white border-gray-100 shadow-sm border-b flex items-center ${
+          scrollTop ? 'top-0' : 'top-6'
+        } transition-all duration-100 z-50`}
+      >
       <div className="hidden xl:flex lg:flex md:hidden sm:hidden ml-8 relative z-10">
          {/* Nav logo */}
         <div className='2xl:ml-44'>
@@ -966,6 +993,7 @@ const TestTwoHeader = () => {
             
         
     </header>
+    </div>
   );
 };
 

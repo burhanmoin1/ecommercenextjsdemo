@@ -1,6 +1,6 @@
 'use client';
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ItemsHeader = () => {
     const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -20,8 +20,31 @@ const ItemsHeader = () => {
         }, 300);
     };
 
+    const [scrollTop, setScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrollTop(true);
+      } else {
+        setScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
     return (
-        <header className="fixed hidden 2xl:block xl:block lg:block top-4 mt-14 bg-white border-gray-200 border-b w-full z-20">
+        <header
+        className={`fixed hidden 2xl:block xl:block lg:block w-full mt-14 bg-white border-gray-200 border-b z-20 ${
+          scrollTop ? 'top-4' : 'top-10'
+        } transition-all duration-100`}
+      >
         <div className='hidden ml-24 2xl:flex xl:flex lg:flex md:flex sm:flex md:text-md'>
             {['Food Cupboard', 'Health & Beauty'].map((item, index) => (
                 <div

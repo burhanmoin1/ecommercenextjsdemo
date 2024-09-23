@@ -341,7 +341,7 @@ const SearchPage: React.FC = () => {
                                     </Link>
                                     
                                     {/* Ensure the button is always at the end of the flex container */}
-                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-auto hover:bg-[#3c3f74] hover:text-white' 
+                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-4 hover:bg-[#3c3f74] hover:text-white' 
                                             onClick={() => handleAddToCart(product)}>
                                         Add to cart
                                     </button>
