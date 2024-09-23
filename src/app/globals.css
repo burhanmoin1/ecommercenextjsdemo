@@ -4,8 +4,8 @@
 
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 30px white inset; /* Change 'white' to your desired background color */
-    box-shadow: 0 0 0 30px white inset; /* Same here */
-    -webkit-text-fill-color: black; /* Change 'black' to your desired text color */
+    -webkit-box-shadow: 0 0 0 30px white inset;
+    box-shadow: 0 0 0 30px white inset;
+    -webkit-text-fill-color: black;
   }
   
