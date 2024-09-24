@@ -21,6 +21,8 @@ const countOccurrences = (arr: string[]) => {
     }, {});
 };
 
+
+
 const customStyles = {
     control: (provided: any) => ({
       ...provided,
@@ -54,9 +56,14 @@ const CategoryProductsTest: React.FC = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [columns, setColumns] = useState(4); // Start with 4 columns
 
+  // Set metadata based on the category
+  
+
     const formatCategory = (categoryParam: string) => {
         return categoryParam.replace(/-/g, ' '); // Replaces all dashes with spaces
     };
+
+    
 
     const dispatch = useDispatch();
 
@@ -79,6 +86,8 @@ const CategoryProductsTest: React.FC = () => {
         console.log(formattedCategory)
 
 
+    const title = category ? `Products | ${formattedCategory}` : 'Products';
+    
     const handleColumnChange = (newColumns: number) => {
         setColumns(newColumns);
     };
@@ -173,6 +182,7 @@ const CategoryProductsTest: React.FC = () => {
 
     return (
         <div className="2xl:w-[70%] xl:w-[75%] xl:ml-44 2xl:ml-44 2xl:mt-44 xl:mt-44 lg:mt-44 md:mt-44 mt-24 z-2">
+             <title>{title}</title>
             <div className="flex flex-col 2xl:flex-row xl:flex-row justify-between">
                
                 {/* Filter Section */}

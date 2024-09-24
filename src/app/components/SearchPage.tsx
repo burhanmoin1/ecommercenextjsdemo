@@ -50,10 +50,7 @@ const SearchPage: React.FC = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [columns, setColumns] = useState(4);
 
-    const formatCategory = (categoryParam: string) => {
-        return categoryParam.replace(/-/g, ' ');
-    };
-
+    
     const dispatch = useDispatch();
 
     const handleAddToCart = (product: Product) => {
@@ -143,6 +140,9 @@ const SearchPage: React.FC = () => {
       const displayQuery = Array.isArray(query) ? query.join(' ') : query;
       const capitalizedQuery = displayQuery.charAt(0).toUpperCase() + displayQuery.slice(1);
 
+      const title = query ? `${numberOfResults} results for "${capitalizedQuery}"` : 'Products';
+
+
     // Sort products based on the selected sort option
     filteredProducts = filteredProducts.sort((a, b) => {
         if (sortOption === 'asc') {
@@ -159,6 +159,7 @@ const SearchPage: React.FC = () => {
 
     return (
         <div className="2xl:w-[70%] xl:w-[75%] xl:ml-44 2xl:ml-44 2xl:mt-44 xl:mt-44 lg:mt-44 md:mt-44 mt-24 z-2">
+             <title>{title}</title>
             <div className="flex flex-col 2xl:flex-row xl:flex-row justify-between">
                
                 {/* Filter Section */}
