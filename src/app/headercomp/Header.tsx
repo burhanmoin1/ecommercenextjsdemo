@@ -496,6 +496,11 @@ const TestTwoHeader = () => {
                     animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ zIndex: 50 }}
+                    onClick={() => {
+                      if (isOpen) {
+                        setIsOpen(false)
+                      }
+                  }}
                   />
                   <motion.div
                     className="w-6 h-0.5 bg-black"
@@ -508,6 +513,11 @@ const TestTwoHeader = () => {
                     animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -10 : 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ zIndex: 50 }}
+                    onClick={() => {
+                      if (isOpen) {
+                        setIsOpen(false)
+                      }
+                  }}
                   />
                 </button>
           
@@ -695,8 +705,8 @@ const TestTwoHeader = () => {
               <div className='p-4 mt-6'>
                 <div className='flex justify-between'> 
                 <h2 className='font-bold text-xl'>LOG IN TO ACCESS EVERYTHING</h2>
-                <Image src={xicon} alt='xicon' width={34} 
-            height={0} className={`h-10 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                <Image src={xicon} alt='xicon' width={26} 
+            height={0} className={`h-7 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
                       onClick={toggleUserMenu}
                   /></div>
                 <div className="mb-4 mt-10">
