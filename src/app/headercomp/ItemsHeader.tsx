@@ -1,6 +1,7 @@
 'use client';
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { motion } from 'framer-motion';
 
 const ItemsHeader = () => {
     const [hoveredItem, setHoveredItem] = useState<string | null>(null);
@@ -53,9 +54,10 @@ const ItemsHeader = () => {
                     onMouseLeave={handleMouseLeave}
                 >
                     <Link href={`/products/${item}`}>
-                        <p className={`p-8 text-black cursor-pointer font-semibold transition-opacity duration-300 ${hoveredItem === item ? 'opacity-50' : 'opacity-100'}`}>
+                        <motion.p className={`p-8 text-black cursor-pointer font-semibold transition-opacity duration-300 ${hoveredItem === item ? 'opacity-50' : 'opacity-100'}`}
+                        whileHover={{scale:0.98}}>
                             {item}
-                        </p>
+                        </motion.p>
                     </Link>
                     <div
                         className={`absolute bottom-0 left-5 w-[80%] h-1 bg-black transition-transform duration-300 ${hoveredItem === item ? 'scale-x-100' : 'scale-x-0'} origin-left`}
@@ -71,11 +73,11 @@ const ItemsHeader = () => {
                     >
                         <div className="flex p-4">
                             <Link href="/products/Chocolate">
-                                <p className="px-4 py-2 hover:underline cursor-pointer">Chocolate</p>
+                                <motion.p className="px-4 py-2 hover:underline cursor-pointer" whileHover={{scale:0.98}}>Chocolate</motion.p>
                             </Link>
                             <Link href="/products/Candies,-Gums-&-Mints">
-                                <p className="px-4 py-2 hover:underline cursor-pointer">Candies, Gums & Mints
-                                </p>
+                                <motion.p className="px-4 py-2 hover:underline cursor-pointer" whileHover={{scale:0.98}}>Candies, Gums & Mints
+                                </motion.p>
                             </Link>
                         </div>
                     </div>
@@ -88,7 +90,7 @@ const ItemsHeader = () => {
                     >
                         <div className="flex p-4">
                             <Link href="/products/Face-&-Skin-Care">
-                                <p className="px-4 py-2 hover:underline cursor-pointer">Face & Skin Care</p>
+                                <motion.p whileHover={{scale:0.98}} className="px-4 py-2 hover:underline cursor-pointer">Face & Skin Care</motion.p>
                             </Link>
                         </div>
                     </div>

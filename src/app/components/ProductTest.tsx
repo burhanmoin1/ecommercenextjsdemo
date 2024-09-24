@@ -165,7 +165,7 @@ const ProductTest: React.FC = () => {
                             <label className="flex items-center cursor-pointer">
                                 <input 
                                     type="checkbox" 
-                                    className="mr-2" 
+                                    className="mr-2 w-4 h-6"
                                     checked={selectedCategories.includes(category)}
                                     onChange={() => handleCategoryChange(category)}
                                 />
@@ -182,7 +182,7 @@ const ProductTest: React.FC = () => {
                                 <label className="flex items-center cursor-pointer">
                                 <input 
                                     type="checkbox" 
-                                    className="mr-2" 
+                                    className="mr-2 w-4 h-6"    
                                     checked={selectedBrands.includes(brand)}
                                     onChange={() => handleBrandChange(brand)}
                                 />
@@ -204,9 +204,10 @@ const ProductTest: React.FC = () => {
                         animate={{ opacity: isFilterOpen ? 0.5 : 0 }}
                         transition={{ duration: 0.3 }}
                         style={{ pointerEvents: isFilterOpen ? 'auto' : 'none' }}
+                        onClick={toggleFilterMenu}
                         />
                             <motion.div
-                            className="fixed top-0 left-0 h-full p-4 w-[60%] md:w-[26%] 2xl:hidden xl:hidden shadow-md bg-white text-black flex flex-col pt-24 overflow-auto z-40"
+                            className="fixed top-10 left-0 h-full p-4 w-[60%] md:w-[26%] 2xl:hidden xl:hidden shadow-md bg-white text-black flex flex-col pt-24 overflow-auto z-40"
                             initial={{ opacity: 0, x: '100%' }}
                             animate={{ opacity: isFilterOpen ? 1 : 0, x: isFilterOpen ? 0 : '-100%' }}
                             transition={{ duration: 0.3 }}
@@ -226,13 +227,13 @@ const ProductTest: React.FC = () => {
                                 <Image src={xicon} alt='X icon' width={20} height={10} className='pb-0 hover:cursor-pointer' onClick={toggleFilterMenu} />
                             </div>
                             <h2 className="border-b-2 border-black w-[30%] font-semibold">Categories</h2>
-                            <ul className='mt-2'>
+                            <ul className='mt-2 space-y-2 pt-2'>
                                 {Object.entries(secondaryCount).map(([category, count]) => (
-                                    <li key={category} className='text-sm flex items-center'>
+                                    <li key={category} className='flex items-center'>
                                     <label className="flex items-center cursor-pointer">
                                         <input 
                                             type="checkbox" 
-                                            className="mr-2" 
+                                            className="mr-2 w-5 h-6"
                                             checked={selectedCategories.includes(category)}
                                             onChange={() => handleCategoryChange(category)}
                                         />
@@ -243,13 +244,13 @@ const ProductTest: React.FC = () => {
                             </ul>
                             {/* Brands */}
                             <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
-                            <ul className='mt-2'>
+                            <ul className='mt-2 space-y-2 pt-2'>
                                 {Object.entries(brandCount).map(([brand, count]) => (
-                                    <li key={brand} className='text-sm flex items-center '>
+                                    <li key={brand} className='flex items-center '>
                                         <label className="flex items-center cursor-pointer">
                                         <input 
                                             type="checkbox" 
-                                            className="mr-2" 
+                                             className="mr-2 w-5 h-6"
                                             checked={selectedBrands.includes(brand)}
                                             onChange={() => handleBrandChange(brand)}
                                         />
@@ -297,7 +298,7 @@ const ProductTest: React.FC = () => {
                         <div className='flex space-x-4'><span>View as: </span>
                             {/* 2 Column Layout */}
                             <div onClick={() => handleColumnChange(2)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
+                                <div className='p-2 py-4 h-full bg-[#3c3f74]'></div>
                                 <div className='p-2 h-full bg-[#3c3f74]'></div>
                             </div>
                             {/* 3 Column Layout */}

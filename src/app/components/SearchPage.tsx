@@ -172,7 +172,7 @@ const SearchPage: React.FC = () => {
                                 <label className="flex items-center cursor-pointer">
                                 <input 
                                     type="checkbox" 
-                                    className="mr-2" 
+                                    className="mr-2 w-4 h-6"    
                                     checked={selectedBrands.includes(brand)}
                                     onChange={() => handleBrandChange(brand)}
                                 />
@@ -196,9 +196,10 @@ const SearchPage: React.FC = () => {
                         animate={{ opacity: isFilterOpen ? 0.5 : 0 }}
                         transition={{ duration: 0.3 }}
                         style={{ pointerEvents: isFilterOpen ? 'auto' : 'none' }}
+                        onClick={toggleFilterMenu}
                         />
                             <motion.div
-                            className="fixed top-0 left-0 h-full p-4 w-[60%] md:w-[26%] 2xl:hidden xl:hidden shadow-md bg-white text-black flex flex-col pt-24 overflow-auto z-40"
+                            className="fixed top-10 left-0 h-full p-4 w-[60%] md:w-[26%] 2xl:hidden xl:hidden shadow-md bg-white text-black flex flex-col pt-24 overflow-auto z-40"
                             initial={{ opacity: 0, x: '100%' }}
                             animate={{ opacity: isFilterOpen ? 1 : 0, x: isFilterOpen ? 0 : '-100%' }}
                             transition={{ duration: 0.3 }}
@@ -219,13 +220,13 @@ const SearchPage: React.FC = () => {
                             </div>
                             {/* Brands */}
                             <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
-                            <ul className='mt-2'>
+                            <ul className='mt-2 space-y-2 pt-2'>
                                 {Object.entries(brandCount).map(([brand, count]) => (
                                     <li key={brand} className='text-sm flex items-center '>
                                         <label className="flex items-center cursor-pointer">
                                         <input 
                                             type="checkbox" 
-                                            className="mr-2" 
+                                            className="mr-2 w-5 h-6"
                                             checked={selectedBrands.includes(brand)}
                                             onChange={() => handleBrandChange(brand)}
                                         />

@@ -250,13 +250,13 @@ const TestTwoHeader = () => {
               </div>
               </div>
             </motion.div>
-        
+                  
             <Image 
-                src={isUserOpen ? xicon :usericon} 
+                src={usericon} 
                 alt='User Icon' 
                 width={22} 
                 height={10} 
-                className={`hover:cursor-pointer z-50 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                className={`hover:cursor-pointer z-30 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
                 onClick={toggleUserMenu}
             />
 
@@ -273,7 +273,7 @@ const TestTwoHeader = () => {
           }}
         />
             <motion.div
-             className="fixed top-0 right-0 2xl:w-[26%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40 hover:cursor-default"
+             className="fixed top-0 right-0 2xl:w-[26%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-10 overflow-auto z-40 hover:cursor-default"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isUserOpen ? 1 : 0, x: isUserOpen ? 0 : '100%' }}
               transition={{ duration: 0.3 }}
@@ -282,8 +282,13 @@ const TestTwoHeader = () => {
               <div>
               {!isRegister ? (
                 <div className='p-4'>
+                  <div className='flex justify-between'> 
                   <h2 className='font-bold text-xl'>LOG IN TO ACCESS EVERYTHING</h2>
-                  <div className="mb-4 mt-10">
+                  <Image src={xicon} alt='xicon' width={22} 
+                      height={10}  className={`hover:cursor-pointer ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                      onClick={toggleUserMenu}
+                  /></div>
+                  <div className="mb-4 mt-4">
                     <label htmlFor="email" className="block font-medium text-gray-700 mb-2">
                       Email Address
                     </label>
@@ -456,11 +461,11 @@ const TestTwoHeader = () => {
             </div>
           
             <Image 
-                src={isCartOpen ? xicon : carticon}
-                alt={isCartOpen ? 'Close Cart' : 'Cart Icon'} 
+                src={carticon}
+                alt={'Close Cart' } 
                 width={22} 
                 height={10} 
-                className={`hover:cursor-pointer z-50 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                className={`hover:cursor-pointer z-30 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
                 onClick={() => dispatch(toggleCartMenu())}
                 />
                 <div className="relative 2xl:absolute 2xl:top-[1.2rem] 2xl:right-[5.8rem] xl:-top-2 xl:right-[2.5rem] lg:right-[2.5rem] lg:-top-2 bg-black text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
@@ -656,11 +661,11 @@ const TestTwoHeader = () => {
             </motion.div>
 
             <Image 
-            src={isUserOpen ? xicon : usericon} 
+            src={ usericon} 
             alt="User Icon" 
             width={24} 
             height={6}
-            className={`hover:cursor-pointer z-50 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+            className={`hover:cursor-pointer z-30 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
             onClick={() => {
               if (!isCartOpen && !isSearchOpen) {
                 toggleUserMenu();
@@ -687,8 +692,13 @@ const TestTwoHeader = () => {
               transition={{ duration: 0.3 }}
             >  <div>
             {!isRegister ? (
-              <div className='p-4'>
+              <div className='p-4 mt-6'>
+                <div className='flex justify-between'> 
                 <h2 className='font-bold text-xl'>LOG IN TO ACCESS EVERYTHING</h2>
+                <Image src={xicon} alt='xicon' width={34} 
+            height={0} className={`h-10 ${isCartOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                      onClick={toggleUserMenu}
+                  /></div>
                 <div className="mb-4 mt-10">
                   <label htmlFor="email" className="block font-medium text-gray-700 mb-2">
                     Email Address
@@ -729,7 +739,7 @@ const TestTwoHeader = () => {
                 </h2>
               </div>
             ) : (
-              <div className='p-4'>
+              <div className='p-4 mt-6'>
                 <h2 className='font-bold text-xl'>REGISTER FOR AN ACCOUNT</h2>
                 <div className="mb-4 mt-10">
                     <label htmlFor="firstName" className="block font-medium text-gray-700 mb-2">First Name</label>
@@ -861,11 +871,11 @@ const TestTwoHeader = () => {
           </div>
               </motion.div>
               <Image 
-                src={isCartOpen ? xicon : carticon}
+                src={carticon}
                 alt={isCartOpen ? 'Close Cart' : 'Cart Icon'} 
                 width={24} 
                 height={6}
-                className={`hover:cursor-pointer z-50 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                className={`hover:cursor-pointer z-30 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
                 onClick={() => {
                   if (!isUserOpen && !isSearchOpen) {
                     dispatch(toggleCartMenu());
@@ -893,7 +903,20 @@ const TestTwoHeader = () => {
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: isCartOpen ? 1 : 0, x: isCartOpen ? 0 : '100%' }}
             transition={{ duration: 0.3 }}
-          > <h2 className="font-bold m-4 text-2xl">Your Bag ({cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0})</h2>
+          > <div className='flex justify-between m-4'><h2 className="font-bold text-2xl">Your Bag ({cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0})</h2>
+           <Image 
+                src={xicon}
+                alt={ 'Close Cart' } 
+                width={28} 
+                height={6}
+                className={`h-8 hover:cursor-pointer z-30 ${isUserOpen || isSearchOpen ? 'opacity-0 pointer-events-none' : ''}`}
+                onClick={() => {
+                  if (!isUserOpen && !isSearchOpen) {
+                    dispatch(toggleCartMenu());
+                  }
+                }}
+              />
+          </div>
           {cartItems.length > 0 ? (
           <div className="flex flex-col flex-grow space-y-4">
 
