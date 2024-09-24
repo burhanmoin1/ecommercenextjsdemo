@@ -38,7 +38,8 @@ const customStyles = {
       backgroundColor: state.isSelected ? '#3B82F6' : '#fff',
       color: state.isSelected ? '#fff' : '#000',
       '&:hover': {
-      cursor: 'pointer'
+      cursor: 'pointer',
+      backgroundColor: !state.isSelected ? '#E0F2FE' : undefined,
       }
      
     }),

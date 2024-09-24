@@ -16,6 +16,11 @@ import mailicon from '@/app/assets/icons/mailicon.png';
 import lockicon from '@/app/assets/icons/lockicon.png';
 import plusicon from '@/app/assets/icons/plusicon.png';
 import minusicon from '@/app/assets/icons/minusicon.png';
+import iconcandy from '@/app/assets/icons/iconcandy.png';
+import iconcleansing from '@/app/assets/icons/iconcleansing.png';
+import iconcupboard from '@/app/assets/icons/iconcupboard.png';
+import iconhairwashing from '@/app/assets/icons/iconhairwashing.png';
+import iconchocolate from '@/app/assets/icons/iconchocolate.png';
 import { motion } from 'framer-motion';
 import { Product } from '../utils/common';
 import Image from 'next/image';
@@ -275,9 +280,9 @@ const TestTwoHeader = () => {
             >
               <div>
               {!isRegister ? (
-                <div className='p-4'>
+                <div className='p-4 mt-4'>
                   <h2 className='font-bold text-xl'>LOG IN TO ACCESS EVERYTHING</h2>
-                  <div className="mb-4 mt-10">
+                  <div className="mb-4 mt-2">
                     <label htmlFor="email" className="block font-medium text-gray-700 mb-2">
                       Email Address
                     </label>
@@ -317,7 +322,7 @@ const TestTwoHeader = () => {
                   </h2>
                 </div>
               ) : (
-                <div className='p-4'>
+                <div className='p-4 mt-4'>
                   <h2 className='font-bold text-xl'>REGISTER FOR AN ACCOUNT</h2>
                   <div className="mb-4 mt-10">
                       <label htmlFor="firstName" className="block font-medium text-gray-700 mb-2">First Name</label>
@@ -475,9 +480,9 @@ const TestTwoHeader = () => {
             <div className="flex justify-between w-full p-5 2xl:hidden xl:hidden lg:hidden md:flex sm:flex">
             
                 {/* Hamburger Menu */}
-              <div className={`flex items-center ${isCartOpen ? 'hidden' : 'block'} ${isSearchOpen ? 'opacity-0' : '' }`}>
+              <div className={`flex items-center ${isCartOpen ? 'hidden' : 'block'} ${isSearchOpen ? 'opacity-0' : '' }`} onClick={toggleMenu} >
                 <button 
-                  onClick={toggleMenu} 
+                  
                   className="relative w-6 h-4 flex flex-col justify-between items-center"
                 >
                   <motion.div
@@ -485,6 +490,11 @@ const TestTwoHeader = () => {
                     animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ zIndex: 50 }}
+                    onClick={() => {
+                      if (isOpen) {
+                        setIsOpen(false)
+                      }
+                  }}
                   />
                   <motion.div
                     className="w-6 h-0.5 bg-black"
@@ -497,6 +507,11 @@ const TestTwoHeader = () => {
                     animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -10 : 0 }}
                     transition={{ duration: 0.3 }}
                     style={{ zIndex: 50 }}
+                    onClick={() => {
+                      if (isOpen) {
+                        setIsOpen(false)
+                      }
+                  }}
                   />
                 </button>
           
@@ -512,7 +527,7 @@ const TestTwoHeader = () => {
                 }
             }}
             />
-          <div className={`fixed top-0 left-0 w-full h-full z-30 ${isOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
+          <div className={`fixed top-0 left-0 w-full h-full z-30`}>
             <motion.div
              className="fixed top-0 left-0 h-full w-[64%] md:w-[40%] shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
              initial={{ opacity: 0, x: '-100%' }}
@@ -520,11 +535,12 @@ const TestTwoHeader = () => {
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             >
-            <div className="flex flex-col items-start pl-6 w-full space-y-8 ">
-              <Link href="/" className="text-xl py-2" onClick={() => setIsOpen(false)}>Home</Link>   
+            <div className="flex flex-col items-start pl-6 w-full space-y-4">
+              <Link href="/" className="text-xl mt-4" onClick={() => setIsOpen(false)}>Home</Link>   
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('services')}>
-                    <Link href="#" className="text-xl py-2">Food Cupboard</Link>
+                    <Image src={iconcupboard} alt='Cupboard Icon' width={20} height={20} />
+                    <Link href="#" className="text-xl">Food Cupboard</Link>
                     <Image
                       src={activeSection === 'services' ? uparrow : downarrow}
                       alt={activeSection === 'services' ? 'Up arrow' : 'Down arrow'}
@@ -537,14 +553,25 @@ const TestTwoHeader = () => {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="pl-2 py-2 text-lg">
-                      <Link href="/products/Chocolate" className="block py-1 text-black">Chocolate</Link>
-                      <Link href="/products/Candies,-Gums-&-Mints" className="block py-1 text-black">Candies, Gums & Mints</Link>
+                    <div className="pl-2">
+                    <Link href="/products/Chocolate" className="block py-1 text-black">
+                      <div className='flex space-x-2'>
+                      <Image src={iconchocolate} alt='Cupboard Icon' width={24} height={4} className='rotate-90' />
+                      <p>Chocolate</p> 
+                      </div>
+                      </Link>
+                      
+                      <Link href="/products/Candies,-Gums-&-Mints" className="block py-1 text-black">
+                      <div className='flex space-x-2'>
+                      <Image src={iconcandy} alt='Cupboard Icon' width={24} height={4} className='rotate-90' />
+                      <p>Candies, Gums & Mints</p></div></Link>
                     </div>
+
                   </motion.div>
                 </div>
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('products')}>
+                  <Image src={iconhairwashing} alt='Cupboard Icon' width={20} height={20} />
                     <Link href="#" className="text-xl py-2">Health & Beauty</Link>
                     <Image
                       src={activeSection === 'products' ? uparrow : downarrow}
@@ -558,8 +585,8 @@ const TestTwoHeader = () => {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <div className="pl-2 py-2 text-lg">
-                      <Link href="/products/Face-&-Skin-Care" className="block py-1 text-black">Face & Skin Care</Link>
+                    <div className="pl-2 py-2">
+                      <Link href="/products/Face-&-Skin-Care" className="block py-1 text-black"><div className='flex space-x-2'><Image src={iconcleansing} alt='Cupboard Icon' width={24} height={4} className='rotate-90' /><p>Face & Skin Care</p></div></Link>
                     </div>
                   </motion.div>
                 </div>
@@ -671,9 +698,9 @@ const TestTwoHeader = () => {
               transition={{ duration: 0.3 }}
             >  <div>
             {!isRegister ? (
-              <div className='p-4'>
+              <div className='p-4 mt-8'>
                 <h2 className='font-bold text-xl'>LOG IN TO ACCESS EVERYTHING</h2>
-                <div className="mb-4 mt-10">
+                <div className="mb-4 mt-2">
                   <label htmlFor="email" className="block font-medium text-gray-700 mb-2">
                     Email Address
                   </label>
@@ -713,7 +740,7 @@ const TestTwoHeader = () => {
                 </h2>
               </div>
             ) : (
-              <div className='p-4'>
+              <div className='p-4 mt-6'>
                 <h2 className='font-bold text-xl'>REGISTER FOR AN ACCOUNT</h2>
                 <div className="mb-4 mt-10">
                     <label htmlFor="firstName" className="block font-medium text-gray-700 mb-2">First Name</label>
