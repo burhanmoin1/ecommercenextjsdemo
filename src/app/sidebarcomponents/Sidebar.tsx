@@ -1,6 +1,6 @@
 'use client';  // Ensure this is a Client Component
 
-import homeicon from '@/app/assets/icons/icons8-home-32.png';
+import homeicon from '@/app/assets/icons/iconhome.png';
 import inventoryicon from '@/app/assets/icons/icons8-tag-50.png';
 import ordersicon from '@/app/assets/icons/icons8-order-50.png';
 import analyticsicon from '@/app/assets/icons/icons8-sales-50.png';
