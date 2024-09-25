@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
-import Logo from '@/app/assets/icons/iglogocheck-01.png';
+import Logo from '@/app/assets/logo/logo.png';
 import downarrow from '@/app/assets/icons/downarrow.png';
 import uparrow from '@/app/assets/icons/uparrow.png';
 import trashicon from '@/app/assets/icons/trashicon.png';
@@ -162,7 +162,7 @@ const TestTwoHeader = () => {
               src={Logo.src}
               alt="Remote Connect Logo"
               className="2xl:h-12 xl:h-12 lg:h-12 md:h-12 mt-3 ml-2"
-              width={80}
+              width={240}
               height={180}
             />
           </Link>
@@ -239,7 +239,7 @@ const TestTwoHeader = () => {
                     <p className="text-center w-full col-span-4">Start typing to search for products...</p>
                   ) : searchedProducts.length > 0 ? (
                     searchedProducts.map((product) => (
-                      <div key={product.sku} className="bg-white p-4 rounded text-center hover:cursor-pointer" >
+                      <div key={product.sku} className="bg-white p-4 rounded text-center hover:cursor-pointer flex flex-col justify-between h-[380px]" >
                          <Link href={`/product/${encodeURIComponent(product.name.replace(/\s+/g, '-'))}`} onClick={() => dispatch(toggleSearchMenu())}>
                         <Image src={product.image} alt={product.name} width={200} height={150} className="mx-auto mb-2" />
                         <h3 className="font-bold">{product.name}</h3>
@@ -608,9 +608,9 @@ const TestTwoHeader = () => {
             <Image 
                 src={Logo.src}
                 alt="Remote Connect Logo" 
-                className="h-10 mr-20" 
-                width={60}
-                height={120}
+                className="h-8 mt-1 mr-20" 
+                width={160}
+                height={100}
             />
             </Link>
         </div>

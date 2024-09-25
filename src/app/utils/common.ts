@@ -3,6 +3,9 @@ import oreosandw from '@/app/assets/productimages/oreosandw.jpg';
 import Depufff from '@/app/assets/productimages/De-pufff.jpg';
 import LindtVegan100g from '@/app/assets/productimages/LindtVegan100g.jpg';
 import WrigleysExtraRefreshers from '@/app/assets/productimages/WrigleysExtraRefreshers.jpg';
+import mrbeastoriginalchocolate from '@/app/assets/productimages/mrbeastoriginal.jpg';
+import mrbeastpeanutchocolate from '@/app/assets/productimages/Feastables-MrBeast-Peanut-Butter.jpg';
+import mrbeastmilkchocolate from '@/app/assets/productimages/mrbeastmilkchocolate.jpg';
 
 import { StaticImageData } from 'next/image';
 
@@ -18,49 +21,31 @@ export interface Product {
 
 const products: Product[] = [
   {
-      name: 'Nestle Damak Gece 55% Kakao Chocolate 60g',
-      brand: 'Nestle',
-      sku: '8690632994079',
+      name: "Feastables MrBeast Original Chocolate Bar, 2.1 oz (60g), 1 bar",
+      brand: "Feastables",
+      sku: '83959702',
       primary_category: 'Food Cupboard',
       secondary_category: 'Chocolate',
-      selling_price: 825.00,
-      image: DamakGece,
+      selling_price: 2000.00,
+      image: mrbeastoriginalchocolate,
   },
   {
-      name: 'Milka Oreo Sandwich Chocolate 92g',
-      brand: 'Oreo',
-      sku: '7622202211867',
-      primary_category: 'Food Cupboard',
-      secondary_category: 'Chocolate',
-      selling_price: 1000.00,
-      image: oreosandw,
-  },
-  {
-      name: "Byoma Depufff + Brighten Eye Gel 20ml",
-      brand: "Byoma",
-      sku: '5060489794154',
-      primary_category: 'Health & Beauty',
-      secondary_category: 'Face & Skin Care',
-      selling_price: 1390.00,
-      image: Depufff,
-  },
-  {
-      name: 'Lindt Classic Recipe Vegan Hazelnut Chocolate 100g',
-      brand: 'Lindt',
-      sku: '4000539140365',
-      primary_category: 'Food Cupboard',
-      secondary_category: 'Chocolate',
-      selling_price: 2200.00,
-      image: LindtVegan100g,
-  },
-  {
-    name: "Wrigley's Extra Refresher's Strawberry Lemon Gum 30s",
-    brand: "Wrigley's",
-    sku: '4009900544580',
+    name: "Feastables MrBeast Peanut Butter Bar, 2.1 oz (60g), 1 bar",
+    brand: "Feastables",
+    sku: '83969702',
     primary_category: 'Food Cupboard',
-    secondary_category: 'Candies, Gums & Mints',
-    selling_price: 1390.00,
-    image: WrigleysExtraRefreshers,
+    secondary_category: 'Chocolate',
+    selling_price: 2100.00,
+    image: mrbeastpeanutchocolate,
+},
+{
+    name: "Feastables MrBeast Milk Chocolate Bar, 2.1 oz (60g), 1 bar",
+    brand: "Feastables",
+    sku: '83969802',
+    primary_category: 'Food Cupboard',
+    secondary_category: 'Chocolate',
+    selling_price: 2100.00,
+    image: mrbeastmilkchocolate,
 },
   
 ];
