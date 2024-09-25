@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
-import Logo from '@/app/assets/logo/logo.png';
+import Logo from '@/app/assets/icons/logo.png';
 import downarrow from '@/app/assets/icons/downarrow.png';
 import uparrow from '@/app/assets/icons/uparrow.png';
 import trashicon from '@/app/assets/icons/trashicon.png';
