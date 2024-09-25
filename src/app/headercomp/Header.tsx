@@ -28,7 +28,7 @@ import Image from 'next/image';
 import products from '../utils/common';
 import { toggleSearchMenu } from '../redux/slices/searchSlice';
 
-
+// Folder name fix
 const TestTwoHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserOpen, setIsUserOpen] = useState(false);
