@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Link from "next/link";
-import Logo from '@/app/assets/icons/logo.png';
+import Logo from '@/app/assets/icons/RareTreatsLogo.png';
 import downarrow from '@/app/assets/icons/downarrow.png';
 import uparrow from '@/app/assets/icons/uparrow.png';
 import trashicon from '@/app/assets/icons/trashicon.png';
@@ -162,7 +162,7 @@ const TestTwoHeader = () => {
               src={Logo.src}
               alt="Remote Connect Logo"
               className="2xl:h-12 xl:h-12 lg:h-12 md:h-12 mt-3 ml-2"
-              width={240}
+              width={280}
               height={180}
             />
           </Link>
@@ -185,7 +185,7 @@ const TestTwoHeader = () => {
           className="fixed inset-0 bg-black z-30"
           initial={{ opacity: 0 }}
           animate={{ opacity: isSearchOpen ? 0.5 : 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} 
           onClick={() => {
             if (isSearchOpen) {
@@ -197,7 +197,7 @@ const TestTwoHeader = () => {
              className="fixed top-0 right-0 w-full h-[70%] shadow-md bg-white hover:cursor-default text-black flex flex-col pt-8 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isSearchOpen ? 1 : 0, x: isSearchOpen ? 0 : '100%' }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
             >
             <div className='flex flex-col justify-center space-y-2'>
@@ -269,7 +269,7 @@ const TestTwoHeader = () => {
           className="fixed inset-0 bg-black z-30"
           initial={{ opacity: 0 }}
           animate={{ opacity: isUserOpen ? 0.5 : 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} 
           onClick={() => {
             if (!isCartOpen && !isSearchOpen) {
@@ -281,7 +281,7 @@ const TestTwoHeader = () => {
              className="fixed top-0 right-0 2xl:w-[26%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-10 overflow-auto z-40 hover:cursor-default"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isUserOpen ? 1 : 0, x: isUserOpen ? 0 : '100%' }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
             >
               <div>
@@ -480,7 +480,7 @@ const TestTwoHeader = () => {
               className="fixed inset-0 bg-black z-30 translate-x-[-50px] w-full"
               initial={{ opacity: 0 }}
               animate={{ opacity: isCartOpen ? 0.5 : 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }}
             />
               <div className={`fixed top-0 left-0 w-full h-full z-30 ${isCartOpen ? 'block' : 'hidden'}`} onClick={() => setIsOpen(false)}>
@@ -499,7 +499,7 @@ const TestTwoHeader = () => {
                   <motion.div
                     className="w-6 h-0.5 bg-black"
                     animate={{ rotate: isOpen ? 45 : 0, y: isOpen ? 6 : 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                     style={{ zIndex: 50 }}
                     onClick={() => {
                       if (isOpen) {
@@ -510,13 +510,13 @@ const TestTwoHeader = () => {
                   <motion.div
                     className="w-6 h-0.5 bg-black"
                     animate={{ opacity: isOpen ? 0 : 1 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                     style={{ zIndex: 50 }}
                   />
                   <motion.div
                     className="w-6 h-0.5 bg-black"
                     animate={{ rotate: isOpen ? -45 : 0, y: isOpen ? -10 : 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                     style={{ zIndex: 50 }}
                     onClick={() => {
                       if (isOpen) {
@@ -543,7 +543,7 @@ const TestTwoHeader = () => {
              className="fixed top-0 left-0 h-full w-[64%] md:w-[40%] shadow-md bg-white text-black flex flex-col pt-16 overflow-auto z-40"
              initial={{ opacity: 0, x: '-100%', display: 'hidden'  }}
              animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : '-100%',  display: 'block' }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
             >
             <div className="flex flex-col items-start pl-6 w-full space-y-6 ">
@@ -564,7 +564,7 @@ const TestTwoHeader = () => {
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: activeSection === 'services' ? 'auto' : 0, opacity: activeSection === 'services' ? 1 : 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.1, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
                     <div className="pl-2 py-2">
@@ -591,7 +591,7 @@ const TestTwoHeader = () => {
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: activeSection === 'products' ? 'auto' : 0, opacity: activeSection === 'products' ? 1 : 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.1, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
                     <div className="pl-2 py-2">
@@ -608,8 +608,8 @@ const TestTwoHeader = () => {
             <Image 
                 src={Logo.src}
                 alt="Remote Connect Logo" 
-                className="h-8 mt-1 mr-20" 
-                width={160}
+                className="h-8 mt-1 -ml-2" 
+                width={180}
                 height={100}
             />
             </Link>
@@ -621,14 +621,14 @@ const TestTwoHeader = () => {
              initial={{ opacity: 0}}
             className="fixed inset-0 bg-black z-30 w-full"
             animate={{ opacity: isSearchOpen ? 0.5 : 0, x: isSearchOpen ? '-4%' : ''  }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
             style={{ pointerEvents: isSearchOpen ? 'auto' : 'none' }} 
           />
             <motion.div
              className="fixed top-0 right-0 w-full h-full shadow-md bg-white hover:cursor-default text-black flex flex-col pt-8 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isSearchOpen ? 1 : 0, x: isSearchOpen ? 0 : '100%' }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
             >
             <div className="relative flex items-center border-b-2 pb-4 w-full max-w-5xl space-x-2 2xl:mr-8 xl:mr-4 lg:mr-4">
@@ -691,7 +691,7 @@ const TestTwoHeader = () => {
           className="fixed inset-0 bg-black z-30 w-full"
           initial={{ opacity: 0}}
           animate={{ opacity: isUserOpen ? 0.5 : 0, x: isUserOpen ? '-10%' : '-10%' }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           style={{ pointerEvents: isUserOpen ? 'auto' : 'none' }} 
           onClick={() => {
             if (isUserOpen) {
@@ -704,7 +704,7 @@ const TestTwoHeader = () => {
              className="fixed top-0 right-0 w-[88%] h-full shadow-md bg-white text-black flex flex-col pt-8 overflow-auto z-40"
              initial={{ opacity: 0, x: '100%' }}
              animate={{ opacity: isUserOpen ? 1 : 0, x: isUserOpen ? 0 : '100%' }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
             >  <div>
             {!isRegister ? (
               <div className='p-4 mt-6'>
@@ -905,7 +905,7 @@ const TestTwoHeader = () => {
           className="fixed inset-0 bg-black z-30 w-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: isCartOpen ? 0.5 : 0 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.2 }}
           style={{ pointerEvents: isCartOpen ? 'auto' : 'none' }}
           onClick={() => {
             if (isCartOpen) {
@@ -917,7 +917,7 @@ const TestTwoHeader = () => {
             className="fixed top-0 right-0 w-[80%] 2xl:w-[20%] xl:w-[20%] h-full shadow-md bg-white text-black flex flex-col pt-6 overflow-auto z-40"
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: isCartOpen ? 1 : 0, x: isCartOpen ? 0 : '100%' }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
           > <div className='flex justify-between m-4'><h2 className="font-bold text-2xl">Your Bag ({cartItems.length > 0 ? cartItems.reduce((total, item) => total + item.quantity, 0) : 0})</h2>
            <Image 
                 src={xicon}

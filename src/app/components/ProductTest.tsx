@@ -162,36 +162,39 @@ const ProductTest: React.FC = () => {
                     <ul className='mt-2'>
                         {Object.entries(secondaryCount).map(([category, count]) => (
                             <li key={category} className='text-sm flex items-center justify-between'>
-                            <label className="flex items-center cursor-pointer">
-                                {category} ({count})
-                            </label>
-                            <input 
-                                    type="checkbox" 
-                                    className="mr-2 w-4 h-6 hover:cursor-pointer"
-                                    checked={selectedCategories.includes(category)}
-                                    onChange={() => handleCategoryChange(category)}
+                            <label className="flex items-center justify-between w-full cursor-pointer">
+                                {/* Text and Count */}
+                                <span>{category} ({count})</span>
+                                {/* Checkbox */}
+                                <input 
+                                type="checkbox" 
+                                className="mr-2 w-4 h-6 hover:cursor-pointer"
+                                checked={selectedCategories.includes(category)}
+                                onChange={() => handleCategoryChange(category)}
                                 />
-                        </li>
+                            </label>
+                            </li>
                         ))}
-                    </ul>
+                        </ul>
                     {/* Brands */}
                     <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
                     <ul className='mt-2'>
-                        {Object.entries(brandCount).map(([brand, count]) => (
-                            <li key={brand} className='text-sm flex items-center justify-between '>
-                                <label className="flex items-center cursor-pointer">
-                                
-                                {brand} ({count})
-                                </label>
-                                <input 
+                            {Object.entries(brandCount).map(([brand, count]) => (
+                                <li key={brand} className='text-sm flex items-center justify-between'>
+                                <label className="flex items-center justify-between w-full cursor-pointer">
+                                    {/* Brand Name and Count */}
+                                    <span>{brand} ({count})</span>
+                                    {/* Checkbox */}
+                                    <input 
                                     type="checkbox" 
-                                    className="mr-2 w-4 h-6 hover:cursor-pointer"    
+                                    className="mr-2 w-4 h-6 hover:cursor-pointer"
                                     checked={selectedBrands.includes(brand)}
                                     onChange={() => handleBrandChange(brand)}
-                                />
-                            </li>
-                        ))}
-                    </ul>
+                                    />
+                                </label>
+                                </li>
+                            ))}
+                            </ul>
                 </div>
                 <h2 className='text-center text-6xl font-bold mt-2 border-b-2 pb-6 tracking-tighter 2xl:hidden xl:hidden'>All Products</h2>
                 {/* Products Display Section */}
@@ -203,7 +206,7 @@ const ProductTest: React.FC = () => {
                         className="fixed inset-0 bg-black z-30 w-full"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: isFilterOpen ? 0.5 : 0 }}
-                        transition={{ duration: 0.3 }}
+                        transition={{ duration: 0.1 }}
                         style={{ pointerEvents: isFilterOpen ? 'auto' : 'none' }}
                         onClick={toggleFilterMenu}
                         />
@@ -211,7 +214,7 @@ const ProductTest: React.FC = () => {
                             className="fixed top-10 left-0 h-full p-4 w-[60%] md:w-[26%] 2xl:hidden xl:hidden shadow-md bg-white text-black flex flex-col pt-24 overflow-auto z-40"
                             initial={{ opacity: 0, x: '100%' }}
                             animate={{ opacity: isFilterOpen ? 1 : 0, x: isFilterOpen ? 0 : '-100%' }}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: 0.1 }}
                             > 
                             <div className='flex justify-between mb-8'>
                             <div className='flex space-x-4'><span>View as: </span>
@@ -231,37 +234,41 @@ const ProductTest: React.FC = () => {
                             <ul className='mt-2 space-y-2 pt-2'>
                                 {Object.entries(secondaryCount).map(([category, count]) => (
                                     <li key={category} className='flex items-center justify-between'>
-                                    <label className="flex items-center cursor-pointer text-sm">
-                                        
-                                        {category} ({count})
-                                    </label>
-                                    <input 
-                                            type="checkbox" 
-                                            className="ml-4 w-5 h-6"
-                                            checked={selectedCategories.includes(category)}
-                                            onChange={() => handleCategoryChange(category)}
-                                        />
-                                </li>
-                                ))}
-                            </ul>
-                            {/* Brands */}
-                            <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
-                            <ul className='mt-2 space-y-2 pt-2'>
-                                {Object.entries(brandCount).map(([brand, count]) => (
-                                    <li key={brand} className='flex items-center justify-between'>
-                                        <label className="flex items-center cursor-pointer text-sm">
-                                        {brand} ({count})
-                                        </label>
+                                    <label className="flex items-center justify-between w-full cursor-pointer text-sm">
+                                        {/* Category Name and Count */}
+                                        <span>{category} ({count})</span>
+                                        {/* Checkbox */}
                                         <input 
-                                            type="checkbox" 
-                                             className="ml-4 w-5 h-6"
-                                            checked={selectedBrands.includes(brand)}
-                                            onChange={() => handleBrandChange(brand)}
+                                        type="checkbox" 
+                                        className="ml-4 w-5 h-6"
+                                        checked={selectedCategories.includes(category)}
+                                        onChange={() => handleCategoryChange(category)}
                                         />
+                                    </label>
                                     </li>
                                 ))}
-                            </ul></motion.div>
-                            
+                                </ul>
+
+                            <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
+                            <ul className='mt-2 space-y-2 pt-2'>
+                            {Object.entries(brandCount).map(([brand, count]) => (
+                                <li key={brand} className='flex items-center justify-between'>
+                                <label className="flex items-center justify-between w-full cursor-pointer text-sm">
+                                    {/* Brand Name and Count */}
+                                    <span>{brand} ({count})</span>
+                                    {/* Checkbox */}
+                                    <input 
+                                    type="checkbox" 
+                                    className="ml-4 w-5 h-6"
+                                    checked={selectedBrands.includes(brand)}
+                                    onChange={() => handleBrandChange(brand)}
+                                    />
+                                </label>
+                                </li>
+                            ))}
+                            </ul>
+
+                        </motion.div>
                          
                         <h2 className="text-sm 2xl:hidden xl:hidden">
                         <Select
