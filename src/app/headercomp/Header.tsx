@@ -202,7 +202,7 @@ const TestTwoHeader = () => {
             >
             <div className='flex flex-col justify-center space-y-2'>
               <div className='flex justify-center space-x-4'>
-                <div className="relative flex items-center w-full  max-w-5xl 2xl:mr-8 xl:mr-4 lg:mr-4">
+                <div className="relative flex items-center w-full max-w-5xl 2xl:mr-8 xl:mr-4 lg:mr-4">
                   <input
                     type="text"
                     placeholder="Search"
@@ -219,14 +219,19 @@ const TestTwoHeader = () => {
                 </div>
               </div>
               {searchQuery !== '' && searchedProducts.length > 0 && (
-                <div className="flex justify-between w-full max-w-5xl px-4 ml-96 pt-4">
-                  <h2 className="text-lg">Products:</h2>
-                  <Link href={`/search/${searchQuery}`}>
-                      <h2 className="text-lg font-bold cursor-pointer border-b-2 border-black inline-block" onClick={() => dispatch(toggleSearchMenu())}>
+              <div className='flex justify-center space-x-4'>
+                <div className="relative flex items-center w-full max-w-5xl 2xl:mr-8 xl:mr-4 lg:mr-4">
+                <h2 className="text-lg">Products:</h2>
+                </div>
+                <div className='flex items-center space-x-2 hover:cursor-pointer' onClick={() => dispatch(toggleSearchMenu())} >
+                 
+                <Link href={`/search/${searchQuery}`}>
+                      <h2 className="text-lg font-bold cursor-pointer border-b-2 border-black inline-block">
                         View All
                       </h2>
                     </Link>
                 </div>
+              </div>
               )}
               <div className="flex justify-center items-center min-h-[20vh]">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">

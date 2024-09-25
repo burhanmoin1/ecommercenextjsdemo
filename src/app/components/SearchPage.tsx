@@ -169,16 +169,17 @@ const SearchPage: React.FC = () => {
                     <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
                     <ul className='mt-2'>
                         {Object.entries(brandCount).map(([brand, count]) => (
-                            <li key={brand} className='text-sm flex items-center '>
+                            <li key={brand} className='text-sm flex items-center justify-between'>
                                 <label className="flex items-center cursor-pointer">
+                               
+                                {brand} ({count})
+                                </label>
                                 <input 
                                     type="checkbox" 
-                                    className="mr-2 w-4 h-6"    
+                                    className="mr-2 w-4 h-6 hover:cursor-pointer"    
                                     checked={selectedBrands.includes(brand)}
                                     onChange={() => handleBrandChange(brand)}
                                 />
-                                {brand} ({count})
-                                </label>
                             </li>
                         ))}
                     </ul>
@@ -209,12 +210,12 @@ const SearchPage: React.FC = () => {
                             <div className='flex space-x-4'><span>View as: </span>
                             {/* 1 Column Layout */}
                             <div onClick={() => handlemobileColumnChange(1)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                    <div className='p-2 h-full bg-[#3c3f74]'></div>
+                                    <div className='p-2 h-full bg-black'></div>
                                 </div>
                             {/* 2 Column Layout */}
                                 <div onClick={() => handlemobileColumnChange(2)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                    <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                    <div className='p-2 h-full bg-[#3c3f74]'></div>
+                                    <div className='p-2 h-full bg-black'></div>
+                                    <div className='p-2 h-full bg-black'></div>
                                 </div>
                             </div>
                                 <Image src={xicon} alt='X icon' width={20} height={10} className='pb-0 hover:cursor-pointer' onClick={toggleFilterMenu} />
@@ -223,42 +224,20 @@ const SearchPage: React.FC = () => {
                             <h3 className="mt-4 border-b-2 border-black w-[30%] font-semibold">Brands</h3>
                             <ul className='mt-2 space-y-2 pt-2'>
                                 {Object.entries(brandCount).map(([brand, count]) => (
-                                    <li key={brand} className='text-sm flex items-center '>
+                                    <li key={brand} className='text-sm flex items-center justify-between'>
                                         <label className="flex items-center cursor-pointer">
+                                        {brand} ({count})
+                                        </label>
                                         <input 
                                             type="checkbox" 
                                             className="mr-2 w-5 h-6"
                                             checked={selectedBrands.includes(brand)}
                                             onChange={() => handleBrandChange(brand)}
                                         />
-                                        {brand} ({count})
-                                        </label>
                                     </li>
                                 ))}
                             </ul></motion.div>
-                            <div className='2xl:hidden xl:hidden md:flex md:mr-40 hidden '>
-                            <div className='flex space-x-4'><span>View as: </span>
-                            {/* 2 Column Layout */}
-                            <div onClick={() => handleColumnChange(2)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                    <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                    <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                </div>
-                            {/* 3 Column Layout */}
-                            <div onClick={() => handleColumnChange(3)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                            </div>
-                            {/* 4 Column Layout */}
-                            <div onClick={() => handleColumnChange(4)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                            </div>
-                            </div>
-                        </div>
-                         
+        
                         <h2 className="text-sm 2xl:hidden xl:hidden">
                         <Select
                             styles={customStyles}
@@ -275,21 +254,21 @@ const SearchPage: React.FC = () => {
                         <div className='flex space-x-4'><span>View as: </span>
                             {/* 2 Column Layout */}
                             <div onClick={() => handleColumnChange(2)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
+                                <div className='p-2 h-full bg-black'></div>
+                                <div className='p-2 h-full bg-black'></div>
                             </div>
                             {/* 3 Column Layout */}
                             <div onClick={() => handleColumnChange(3)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
+                                <div className='p-2 h-full bg-black'></div>
+                                <div className='p-2 h-full bg-black'></div>
+                                <div className='p-2 h-full bg-black'></div>
                             </div>
                             {/* 4 Column Layout */}
                             <div onClick={() => handleColumnChange(4)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
-                                <div className='p-2 h-full bg-[#3c3f74]'></div>
+                                <div className='p-2 h-full bg-black'></div>
+                                <div className='p-2 h-full bg-black'></div>
+                                <div className='p-2 h-full bg-black'></div>
+                                <div className='p-2 h-full bg-black'></div>
                             </div>
                         </div>
 
@@ -324,7 +303,7 @@ const SearchPage: React.FC = () => {
                                         <p className='text-center mt-2'>Rs. {new Intl.NumberFormat('en-IN', { maximumFractionDigits: 2 }).format(product.selling_price)}</p>
                                     </Link>
                                     
-                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-4 hover:bg-[#3c3f74] hover:text-white' 
+                                    <button className='w-[80%] mx-auto block border border-[#3c3f74] px-2 py-2 mt-4 hover:bg-black hover:text-white' 
                                             onClick={() => handleAddToCart(product)}>
                                         Add to cart
                                     </button>
