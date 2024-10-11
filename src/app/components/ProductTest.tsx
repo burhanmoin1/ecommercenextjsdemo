@@ -220,12 +220,12 @@ const ProductTest: React.FC = () => {
                             <div className='flex space-x-4'><span>View as: </span>
                             {/* 1 Column Layout */}
                             <div onClick={() => handlemobileColumnChange(1)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                    <div className='p-2 h-full bg-black'></div>
+                                    <div className='p-1 h-full bg-black'></div>
                                 </div>
                             {/* 2 Column Layout */}
                                 <div onClick={() => handlemobileColumnChange(2)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                    <div className='p-2 h-full bg-black'></div>
-                                    <div className='p-2 h-full bg-black'></div>
+                                    <div className='p-1 h-full bg-black'></div>
+                                    <div className='p-1 h-full bg-black'></div>
                                 </div>
                             </div>
                                 <Image src={xicon} alt='X icon' width={20} height={10} className='pb-0 hover:cursor-pointer' onClick={toggleFilterMenu} />
@@ -285,22 +285,22 @@ const ProductTest: React.FC = () => {
                     <div className='2xl:flex xl:flex justify-between items-center hidden mt-4'>
                         <div className='flex space-x-4'><span>View as: </span>
                             {/* 2 Column Layout */}
-                            <div onClick={() => handleColumnChange(2)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 py-4 h-full bg-black'></div>
-                                <div className='p-2 h-full bg-black'></div>
+                            <div onClick={() => handleColumnChange(2)} className='text-center cursor-pointer flex gap-1'>
+                                <div className='p-1 py-2 h-full bg-black'></div>
+                                <div className='p-1 h-full bg-black'></div>
                             </div>
                             {/* 3 Column Layout */}
-                            <div onClick={() => handleColumnChange(3)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-black'></div>
-                                <div className='p-2 h-full bg-black'></div>
-                                <div className='p-2 h-full bg-black'></div>
+                            <div onClick={() => handleColumnChange(3)} className='text-center cursor-pointer flex gap-1'>
+                                <div className='p-1 h-full bg-black'></div>
+                                <div className='p-1 h-full bg-black'></div>
+                                <div className='p-1 h-full bg-black'></div>
                             </div>
                             {/* 4 Column Layout */}
-                            <div onClick={() => handleColumnChange(4)} className='text-center cursor-pointer flex gap-1 bg-white'>
-                                <div className='p-2 h-full bg-black'></div>
-                                <div className='p-2 h-full bg-black'></div>
-                                <div className='p-2 h-full bg-black'></div>
-                                <div className='p-2 h-full bg-black'></div>
+                            <div onClick={() => handleColumnChange(4)} className='text-center cursor-pointer flex gap-1'>
+                                <div className='p-1 h-full bg-black'></div>
+                                <div className='p-1 h-full bg-black'></div>
+                                <div className='p-1 h-full bg-black'></div>
+                                <div className='p-1 h-full bg-black'></div>
                             </div>
                         </div>
 

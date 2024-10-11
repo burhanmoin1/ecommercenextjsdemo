@@ -548,12 +548,12 @@ const TestTwoHeader = () => {
             >
             <div className="flex flex-col items-start pl-6 w-full space-y-6 ">
               <div className='flex items-center mt-6 space-x-2'>
-              <Image src={iconhome} alt='Home Icon' width={20} height={20} />
+              
               <Link href="/" className="text-xl " onClick={() => setIsOpen(false)}>Home</Link>   
               </div>
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('services')}>
-                  <Image src={iconcupboard} alt='Home Icon' width={20} height={20} />
+                 
                     <Link href="#" className="text-xl">Food Cupboard</Link>
                     <Image
                       src={activeSection === 'services' ? uparrow : downarrow}
@@ -568,19 +568,19 @@ const TestTwoHeader = () => {
                     className="overflow-hidden"
                   >
                     <div className="pl-2 py-2">
-                    <Link href="/products/Chocolate" className="block py-1 text-black">
+                    <Link href="/" className="block py-1 text-black">
                       <div className='flex items-center'>
-                        <Image src={iconchocolate}  alt='Home Icon' width={20} height={20} className='mr-2'/>
-                      Chocolate</div></Link>
+                        
+                      Complete Questionnaire</div></Link>
 
-                      <Link href="/products/Candies,-Gums-&-Mints" className="block py-1 text-black"><div className='flex items-center'><Image src={iconcandy}  alt='Home Icon' width={20} height={20} className='mr-2' />
+                      <Link href="/" className="block py-1 text-black"><div className='flex items-center'>
                       Candies, Gums & Mints</div></Link>
                     </div>
                   </motion.div>
                 </div>
                 <div className="flex flex-col w-full">
                   <div className="flex justify-between items-center w-full pr-6" onClick={() => handleArrowToggle('products')}>
-                  <Image src={iconhairwashing} alt='Home Icon' width={20} height={20} />
+                  
                     <Link href="#" className="text-xl">Health & Beauty</Link>
                     <Image
                       src={activeSection === 'products' ? uparrow : downarrow}
@@ -595,7 +595,8 @@ const TestTwoHeader = () => {
                     className="overflow-hidden"
                   >
                     <div className="pl-2 py-2">
-                      <Link href="/products/Face-&-Skin-Care" className="block py-1 text-black"><div className='flex items-center'><Image src={iconcleansing}  alt='Home Icon' width={20} height={20} className='mr-2' />Face & Skin Care</div></Link>
+                      <Link href="/products/Face-&-Skin-Care" className="block py-1 text-black"><div className='flex items-center'>
+                       Face & Skin Care</div></Link>
                     </div>
                   </motion.div>
                 </div>
